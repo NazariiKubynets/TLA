@@ -1,0 +1,60 @@
+@import "global/global";
+
+//Plugins core styles
+@import "../../../../node_modules/swiper/swiper-bundle";
+
+
+//User styles
+@import "components/buttons";
+@import "components/toc";
+@import "components/archive-posts";
+@import "components/contact-form";
+@import "components/form";
+@import "components/header";
+@import "components/menu";
+@import "components/micromodal";
+@import "components/the-content";
+@import "components/titles";
+@import "components/pagination";
+@import "components/img";
+@import "components/searchform";
+@import "components/modal-worker";
+@import "components/footer";
+
+
+//templates-blocks
+@import "templates-block/loading-indicator";
+@import "templates-block/leadership";
+@import "templates-block/contact";
+
+
+//items
+@import "templates-block/items/tour-post";
+@import "templates-block/items/info-post";
+@import "templates-block/items/hero";
+@import "templates-block/items/archive-posts-pagination";
+
+
+//Pages
+@import "pages/page-404";
+@import "pages/tpl-home";
+@import "pages/home-posts";
+@import "pages/category";
+@import "pages/search";
+@import "pages/contact-us";
+@import "pages/destination";
+@import "pages/testimonials";
+@import "pages/terms-conditions";
+@import "pages/privacy-policy";
+@import "pages/dmc-management";
+@import "pages/responsible-travel";
+@import "pages/safe-travels";
+@import "pages/ethical-conscience";
+
+
+//Singles
+@import "singles/blog-post";
+@import "singles/destinations";
+@import "singles/tour";
+
+

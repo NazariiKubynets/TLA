@@ -1,0 +1,23 @@
+.title-s {
+  @include fluidSize(22px, 24px, 390px, 1200px, 'font-size');
+  letter-spacing: -.02em;
+}
+
+.title-m {
+  @include fluidSize(28px, 32px, 390px, 1200px, 'font-size');
+  letter-spacing: -.02em;
+}
+
+.title-l {
+  @include fluidSize(40px, 48px, 390px, 1200px, 'font-size');
+  letter-spacing: -.02em;
+}
+
+.title-xl {
+  @include fluidSize(40px, 64px, 390px, 1200px, 'font-size');
+}
+
+.title-xxl {
+  @include fluidSize(44px, 72px, 390px, 1200px, 'font-size');
+  line-height: 1.08;
+}

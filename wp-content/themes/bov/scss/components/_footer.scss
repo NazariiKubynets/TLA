@@ -1,0 +1,220 @@
+.main-footer {
+  background-color: #FFFFFF;
+  padding-top: 50px;
+  padding-bottom: 40px;
+  @include breakpoint($brp-992) {
+    padding-bottom: 30px;
+    padding-top: 30px;
+  }
+
+  &__wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    @include breakpoint($brp-992) {
+      align-items: start;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      margin-bottom: 0;
+    }
+  }
+
+  &__column {
+    width: 100%;
+    @include r($brp-992) {
+      padding-top: 25px;
+    }
+
+    &:last-of-type{
+      @include r($brp-992){
+        max-width: 380px;
+        width: 100%;
+      }
+    }
+
+    &:first-of-type{
+
+      @include r($brp-576){
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+      }
+      @include r($brp-992){
+        max-width: 745px;
+        width: 100%;
+        border-left: 2px solid rgba(7, 7, 7, 0.2);
+        padding-left: 40px;
+        padding-bottom: 90px;
+        gap: 25px;
+      }
+
+      @include r($brp-1140){
+        padding-left: 110px;
+      }
+    }
+  }
+
+  &__logo {
+    width: fit-content;
+
+    &--desk{
+      display: none;
+    }
+    @include breakpoint($brp-992) {
+      display: block;
+      margin-bottom: 115px;
+
+      &--mobile{
+        display: none;
+      }
+
+      &--desk{
+        display: block;
+      }
+    }
+  }
+
+  &__achievement {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    @include r($brp-992) {
+      justify-content: start;
+    }
+  }
+
+  &__item {
+    width: auto;
+    height: 96px;
+  }
+
+  &__info-text, &__info {
+    opacity: .6;
+    font-size: 12px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    @include r($brp-768) {
+      font-size: 10px;
+    }
+  }
+
+  &__info{
+    margin-bottom: 0;
+    line-height: 1.28;
+  }
+
+  &__information-item {
+    margin-bottom: 10px;
+
+    a {
+      font-size: 16px;
+      transition: $transition-style-fast;
+      &:hover{
+        color: var(--color-bg-btn);
+      }
+      @include breakpoint($brp-992) {
+        font-size: 14px;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__contact-tel{
+    display: block;
+    font-size: 16px;
+    line-height: 1.48;
+    margin-bottom: 10px;
+    transition: $transition-style-fast;
+    &:hover{
+      color: var(--color-bg-btn);
+    }
+
+    &:nth-last-of-type(2){
+      margin-bottom: 30px;
+    }
+
+    @include breakpoint($brp-992) {
+      font-size: 14px;
+    }
+  }
+
+  &__btn{
+    padding: 15px;
+    font-size: 12px;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+
+
+    @include breakpoint($brp-992) {
+      margin-top: -13px;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  &__row{
+    display: flex;
+    gap: 30px;
+    line-height: 0;
+    a{
+      @include underline-hover;
+    }
+  }
+}
+
+.footer-menu {
+
+  margin-bottom: 30px;
+  @include r($brp-992) {
+    max-width: 215px;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  &__list {
+    margin-bottom: 30px;
+
+    @include breakpoint($brp-992) {
+      margin-bottom: 50px;
+    }
+  }
+
+  &__item--lvl-1 {
+    line-height: 0;
+    margin-bottom: 10px;
+
+    a {
+      font-size: 16px;
+      transition: $transition-style-fast;
+      &:hover{
+        color: var(--color-bg-btn);
+      }
+      @include breakpoint($brp-992) {
+        font-size: 14px;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+
+

@@ -1,0 +1,28 @@
+
+@mixin font($f-name, $f-style, $f-weight, $f-url) {
+  @font-face {
+    font-family: #{$f-name};
+    font-style: #{$f-style};
+    font-weight: #{$f-weight};
+    src: url("#{$f-url}.woff2") format("woff2"),
+    url("#{$f-url}.woff") format("woff");
+    font-display: swap;
+  }
+}
+
+@include font("Inter", normal, 400, $themeFolder + "fonts/Inter-Regular");
+@include font("Inter", normal, 500, $themeFolder + "fonts/Inter-Medium");
+@include font("Inter", normal, 600, $themeFolder + "fonts/Inter-SemiBold");
+@include font("Palatino-Linotype", normal, 400, $themeFolder + "fonts/PalatinoLTStd-Roman");
+@include font("Palatino-Linotype", italic, 400, $themeFolder + "fonts/PalatinoLTStd-Italic");
+@include font("GT-America", normal, 400, $themeFolder + "fonts/GT-America-Standard-Regular");
+
+// font-weight helper:
+// 100 Extra Light or Ultra Light;
+// 200 Light or Thin; 300 Book or Demi;
+// 400 Regular or Normal;
+// 500 Medium;
+// 600 Semibold or Demibold;
+// 700 Bold;
+// 800 Black or Extra Bold or Heavy;
+// 900 Extra Black or Fat or Ultra Black

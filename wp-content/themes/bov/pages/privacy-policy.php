@@ -1,0 +1,23 @@
+<?php
+/*
+Template Name: Privacy Policy
+*/
+
+get_header();
+?>
+
+    <section class="hero hero--classic hero--bg-classic">
+        <div class="hero__container container">
+            <div class="hero__content">
+                <h1 class="hero__title title-xl"><?php the_title(); ?></h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="privacy-policy">
+        <div class="privacy-policy__container container the-content">
+            <?php the_content(); ?>
+        </div>
+    </section>
+
+<?php get_footer(); ?>

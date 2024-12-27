@@ -1,0 +1,133 @@
+.safe-travels-top-places{
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  @include r($brp-992){
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+.safe-travels {
+  padding-bottom: 50px;
+  @include r($brp-992){
+    padding-bottom: 100px;
+  }
+
+  &__container{
+    max-width: 920px;
+
+    h2, h3,h4{
+      text-align: center;
+      @include r($brp-576){
+        text-align: left;
+      }
+    }
+  }
+}
+
+.quote{
+  padding-bottom: 50px;
+  @include r($brp-992){
+    padding-bottom: 100px;
+  }
+
+  &__container{
+    max-width: 920px;
+  }
+
+  &__icon{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    @include r($brp-992){
+      margin-bottom: 40px;
+    }
+  }
+
+  &__text{
+    line-height: 1.08;
+    text-align: center;
+    font-family: $palatino;
+    @include fluidSize(32px, 40px, 390px, 1200px, 'font-size');
+    margin-bottom: 30px;
+    @include br($brp-992);
+    @include r($brp-992){
+      margin-bottom: 40px;
+    }
+  }
+
+  &__author-name{
+    text-align: center;
+    font-family: $GT-America;
+    font-size: 16px;
+  }
+}
+
+.safe-travels-advantages {
+  padding-bottom: 50px;
+  @include r($brp-992){
+    padding-bottom: 100px;
+  }
+
+  &__wrap{
+    background-color: #EEEAE6;
+    border-radius: 10px;
+    padding: 50px 30px;
+    @include r($brp-992){
+      padding: 80px 55px;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    @include fluidSize(32px, 40px, 390px, 1200px, 'font-size');
+    letter-spacing: -.02em;
+    margin-bottom: 30px;
+    @include r($brp-992){
+      margin-bottom: 50px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    @include r($brp-992){
+      justify-content: space-between;
+      flex-direction: row;
+      gap: 30px;
+    }
+  }
+
+  &__item{
+    display: flex;
+    flex-direction: column;
+    @include r($brp-992){
+      max-width: 255px;
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 15px;
+  }
+
+  &__item-title {
+    text-align: center;
+    opacity: .8;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 16px;
+  }
+}

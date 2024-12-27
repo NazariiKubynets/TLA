@@ -1,0 +1,127 @@
+.hero {
+  position: relative;
+
+  &--classic {
+    .hero__container {
+      min-height: calc(100svh - 200px);
+      justify-content: center;
+      align-items: center;
+
+      @include r($brp-576) {
+        align-items: end;
+      }
+
+      @include r($brp-768) {
+        min-height: 60svh;
+      }
+    }
+
+    .hero__title, .hero__text {
+      text-align: center;
+    }
+
+    .hero__text {
+      line-height: 1.56;
+
+      p {
+        line-height: 1.56;
+      }
+    }
+  }
+
+  &--bg-classic {
+    background-color: var(--color-secondary);
+  }
+
+  &__img {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(7, 7, 7, 0) 0%, rgba(7, 7, 7, 0.6) 100%);
+      z-index: 1;
+    }
+  }
+
+  &__container {
+    padding-top: 100px;
+    min-height: calc(100svh - 65px);
+    display: flex;
+    align-items: end;
+
+    @include r($brp-768) {
+      padding-top: 130px !important;
+      min-height: 80svh;
+    }
+
+    @include r($brp-1200) {
+      @include rhmax($brp-768) {
+        padding-top: 190px !important;
+      }
+    }
+  }
+
+  &__content {
+    max-width: 860px;
+    padding-bottom: 40px;
+
+    @include r($brp-992) {
+      padding-bottom: 70px;
+    }
+
+    @include r($brp-1200) {
+      @include rhmax($brp-768) {
+        padding-bottom: 50px
+      }
+    }
+  }
+
+  &__subtitle {
+    display: block;
+    padding: 8px 14px;
+    width: fit-content;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--color-secondary-txt);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    margin-bottom: 30px;
+    transition: all $transition-style-fast;
+
+    &:is(a):hover {
+      border-bottom-color: rgba(255, 255, 255, .4);
+      background-color: #FFFFFF;
+      color: var(--color-text);
+    }
+  }
+
+  &__title {
+    color: var(--color-secondary-txt);
+    letter-spacing: -.02em;
+    margin-bottom: 15px;
+
+    @include r($brp-1200) {
+      @include rhmax($brp-768) {
+        @include fluidSize(40px, 64px, 390px, 1600px, 'font-size');
+      }
+    }
+  }
+
+  &__text {
+    @include br($brp-640);
+    color: var(--color-secondary-txt);
+  }
+}

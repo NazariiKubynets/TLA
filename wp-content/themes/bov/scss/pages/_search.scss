@@ -1,0 +1,19 @@
+.posts-archive{
+  &__btn{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    svg{
+      fill: transparent;
+      stroke: #C47900;
+      transition: stroke $transition-style-fast;
+    }
+
+    &:hover svg{
+      @include r($brp-992){
+        stroke: var(--color-secondary);
+      }
+    }
+  }
+}

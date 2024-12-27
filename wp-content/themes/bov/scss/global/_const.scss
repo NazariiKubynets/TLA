@@ -1,0 +1,64 @@
+$themeFolder: "/wp-content/themes/bov/";
+
+$design-width: 1200px;
+
+/* BREAKPOINTS */
+$brp-1500: 1500px;
+$brp-1440: 1440px;
+$brp-1350: 1350px;
+$brp-1280: 1280px;
+/////////////////////
+$brp-1200: 1200px;
+$brp-1170: 1170px;
+$brp-1140: 1140px;
+$brp-1024: 1024px;
+$brp-992: 992px;
+$brp-768: 768px;
+/////////////////////
+$brp-640: 640px;
+$brp-576: 576px;
+$brp-480: 480px;
+$brp-425: 425px;
+$brp-390: 390px;
+$brp-375: 375px;
+$brp-360: 360px;
+$brp-320: 320px;
+
+$brp-xs: 0;
+$brp-sm: 480px;
+$brp-md: 768px;
+$brp-lg: 1024px;
+$brp-xl: 1200px;
+
+$mobile-menu-breakpoint: 992px;
+
+$inter: "Inter";
+$palatino: "Palatino-Linotype";
+$GT-America: "GT-America";
+
+$color-map: (
+        "primary": #FAF6F2,
+        "secondary": #144D55,
+        "text": #070707,
+        "secondary-txt":#FFFFFF,
+        "dark-text": #000000,
+        "bg-btn": #8E8339
+);
+
+:root {
+  --primary-font: "Inter", sans-serif;
+  --font-size-mobile: 18px;
+  --font-size-desktop: 18px;
+
+  /* COLORS */
+
+  @each $name, $color in $color-map {
+    --color-#{$name}: #{$color};
+  }
+}
+
+
+//Transition
+$transition-style-fast: 0.3s ease-in-out;
+$transition-style-medium: 0.6s ease-in-out;
+$transition-style-slow: 0.8s ease-in-out;

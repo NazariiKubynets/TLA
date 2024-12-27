@@ -1,0 +1,146 @@
+.the-content{
+
+  .wp-block-video, .wp-block-embed{
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 45px;
+
+    video{
+      border-radius: 12px;
+    }
+
+    @include breakpoint($brp-992){
+      margin-bottom: 60px;
+    }
+  }
+
+  .wp-block-image{
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 45px;
+
+    @include breakpoint($brp-992){
+      margin-bottom: 60px;
+    }
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .wp-element-caption{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    right: 10px;
+    background-color: #fff;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    border-radius: 2px;
+
+    @include r($brp-768){
+      left: 25px;
+      bottom: 25px;
+      right: 25px;
+      font-size: 12px;
+    }
+
+    &:before{
+      flex-shrink: 0;
+      display: inline-block;
+      content: '';
+      background-color: #C47900;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  }
+
+  h2{
+    @include fluidSize(40px, 48px, 390px, 1200px, 'font-size');
+    letter-spacing: -.02em;
+    margin-top: 50px;
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+
+
+
+  h2 + p, ul + p, p + p, p + h2, .wp-block-video + p,.wp-block-embed + p, .wp-block-image + p {
+    margin-top: 15px;
+  }
+
+  h3,h4,h5,h6{
+    @include fluidSize(28px, 32px, 390px, 1200px, 'font-size');
+    letter-spacing: -.02em;
+    margin-top: 30px;
+    margin-bottom: 15px;
+
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+
+  p:has(strong){
+    margin-top: 25px;
+  }
+
+  p:has(strong) + p {
+    margin-top: 10px;
+  }
+
+  p{
+    line-height: 1.56;
+
+    span{
+      text-transform: uppercase;
+      font-size: 12px;
+      color: #144D55;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+    }
+
+    b,strong{
+      font-weight: 600;
+    }
+  }
+
+  b,strong{
+    font-weight: 600;
+  }
+
+  a{
+    @include underline-hover(rgba(7, 7, 7, 0.2));
+    color: rgba(142, 131, 57, 1);
+    &:hover::after {
+      width: 100%;
+    }
+  }
+
+  ul{
+    margin-top: 15px;
+    padding-left: 30px;
+
+    li{
+      list-style-type: disc;
+      list-style-position: outside;
+      margin-bottom: 5px;
+      line-height: 1.56;
+
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+
+}

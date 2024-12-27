@@ -1,0 +1,138 @@
+.leadership {
+  margin-bottom: 70px;
+  @include r($brp-992) {
+    margin-bottom: 120px;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 30px;
+    @include r($brp-992) {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(320px, 1fr));
+    justify-items: center;
+    column-gap: 25px;
+    row-gap: 30px;
+    grid-auto-flow: row;
+    margin-bottom: 40px;
+
+    @include r($brp-992) {
+      grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 90px;
+    }
+  }
+
+  &__item {
+    cursor: pointer;
+    transition: $transition-style-medium;
+    height: fit-content;
+
+    &:hover {
+      .leadership__img::before {
+        background-color: rgba(7, 7, 7, .7);
+      }
+
+      .leadership__icon {
+        opacity: 1;
+      }
+
+      .leadership__name::after  {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__img {
+    aspect-ratio: 26 / 25;
+    position: relative;
+    width: 100%;
+    //max-height: 320px;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.6s ease;
+    }
+
+    @include r($brp-576){
+      width: 80%;
+      max-height: 100%;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    @include r($brp-768){
+      width: 70%;
+    }
+
+    @include r($brp-992) {
+      width: 100%;
+      margin-bottom: 25px;
+      height: auto;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    width: 48px;
+    height: 48px;
+    fill: transparent;
+    stroke: #FFFFFF;
+  }
+
+  &__name {
+    width: fit-content;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 15px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--color-text);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    @include r($brp-992) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__position {
+    text-align: center;
+    opacity: .8;
+  }
+
+  &__btn {
+    margin: 0 auto;
+  }
+
+  .hidden {
+    display: none;
+  }
+}

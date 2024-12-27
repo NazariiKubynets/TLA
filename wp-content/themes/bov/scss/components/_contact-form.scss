@@ -1,0 +1,102 @@
+@keyframes hideMessage {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.wpcf7 {
+
+  input{
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .wpcf7-textarea{
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .wpcf7-form.submitting{
+    opacity: 0.5;
+  }
+
+  .wpcf7-form-control-wrap {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .wpcf7-validation-errors,
+  .wpcf7-mail-sent-ok {
+
+  }
+
+  .wpcf7-mail-sent-ok {
+
+  }
+
+  .wpcf7-validation-errors {
+    margin-bottom: 15px;
+  }
+
+  .wpcf7-spinner{
+    display: none;
+  }
+
+  div.wpcf7-response-output {
+    display: block;
+    color: #60BB46;
+    @include transition;
+    opacity: 1;
+
+    &.wpcf7-display-none {
+      display: none;
+    }
+  }
+
+  .wpcf7-form.invalid{
+    div.wpcf7-response-output{
+      color: #FB5C48;
+    }
+  }
+
+  .wpcf7-response-output.animate {
+    padding-top: 15px;
+    animation: hideMessage 5s forwards;
+  }
+
+  .screen-reader-response {
+    display: none;
+  }
+
+  //define( 'WPCF7_AUTOP', false );
+  //html_class="use-floating-validation-tip"
+  span.wpcf7-not-valid-tip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 45px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid #FB5C48;
+    background-color: var(--color-secondary);
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #FB5C48;
+    transition: all $transition-style-fast;
+    cursor: pointer;
+  }
+}
+

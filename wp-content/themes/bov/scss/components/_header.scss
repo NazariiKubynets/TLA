@@ -1,0 +1,229 @@
+.burger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+@include burger(2px, 24px, 16px, 7px, rgba(255, 255, 255, 1));
+
+.main-header {
+  margin-bottom: -81px;
+  position: relative;
+  z-index: 1000;
+
+  @include r($mobile-menu-breakpoint) {
+    margin-bottom: -120px;
+    padding: 0;
+  }
+
+  &__burger {
+    z-index: 2000;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    @include r($mobile-menu-breakpoint) {
+      top: 50px;
+      right: 50px;
+    }
+  }
+
+  &__container {
+    display: flex;
+    position: relative;
+    padding: 25px 25px 0;
+    width: 100%;
+
+    @include r($mobile-menu-breakpoint) {
+      justify-content: center;
+      padding: 40px 0 0;
+    }
+  }
+
+  &__logo {
+    z-index: 2000;
+    position: relative;
+    max-width: 210px;
+    height: auto;
+    transition: all .0s ease-in-out;
+
+    &.logo--bg{
+      @include rmax($mobile-menu-breakpoint){
+        transition: all .3s ease-in-out;
+        background-color: var(--color-secondary);
+        padding-bottom: 30px;
+      }
+    }
+
+    @include r($mobile-menu-breakpoint) {
+      z-index: 1;
+      max-width: 300px;
+    }
+  }
+}
+
+//Two level menu
+$menu: ".main-menu";
+.main-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 150px 25px 50px;
+  @include r($mobile-menu-breakpoint){
+    padding: 100px 50px 50px;
+  }
+
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+  }
+
+  &__item {
+
+    &--parent {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 100;
+      transition: text .3s ease;
+
+      &.js-active {
+        #{$menu}__sub-menu {
+          display: flex;
+          flex-direction: column;
+          max-height: 500px;
+        }
+        &>a{
+          color: rgba(142, 131, 57, 1);
+        }
+
+        #{$menu}__toggle{
+          svg {
+            stroke: rgba(142, 131, 57, 1);
+          }
+        }
+
+      }
+      &:hover {
+
+        &>a{
+          color: rgba(142, 131, 57, 1);
+        }
+
+        #{$menu}__toggle{
+          svg {
+            stroke: rgba(142, 131, 57, 1);
+          }
+        }
+      }
+    }
+
+    &--lvl-1 {
+      margin-bottom: 15px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &--lvl-2 {
+      margin-bottom: 5px;
+      &:last-child{
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &__link {
+    transition: all $transition-style-fast;
+
+    &:hover {
+      color: rgba(142, 131, 57, 1);
+    }
+
+    &--lvl-1 {
+      color: var(--color-secondary-txt);
+      font-family: $palatino;
+      font-size: 24px;
+      letter-spacing: -.02em;
+      display: flex;
+      align-items: center;
+      line-height: 1.15;
+    }
+
+    &--lvl-2 {
+      font-size: 16px;
+      display: block;
+      color: rgba(255, 255, 255, .8);
+      transition: $transition-style-fast;
+    }
+  }
+
+  &__sub-menu {
+    width: 100%;
+
+    &--lvl-2{
+      position: relative;
+      top: 10px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .6s ease-in-out;
+    }
+  }
+
+  &__toggle {
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+    left: 10px;
+    transition: all $transition-style-fast;
+    @include blankElement();
+
+    &.js-active {
+      transform: rotate(-180deg);
+    }
+
+    svg {
+      transition: stroke 0.3s ease;
+      fill: transparent;
+      stroke: #FFFFFF;
+    }
+  }
+
+  &__info-text{
+    opacity: .6;
+    font-size: 10px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+  }
+
+  &__contact-tel{
+    display: block;
+    font-size: 14px;
+    line-height: 1.48;
+    margin-bottom: 10px;
+    transition: all $transition-style-fast;
+
+    &:hover {
+      color: rgba(142, 131, 57, 1);
+    }
+
+    &:last-of-type{
+      margin-bottom: 30px;
+    }
+  }
+
+  &__btn{
+    padding: 15px;
+    font-size: 12px;
+  }
+}

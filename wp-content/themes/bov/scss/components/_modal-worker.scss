@@ -1,0 +1,88 @@
+.modal-worker {
+
+  &__overlay {
+    justify-content: center;
+    align-items: baseline;
+    padding: 30px 0;
+    @include breakpoint($brp-992){
+      align-items: center;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 20px 0;
+    max-width: 850px;
+    height: calc(100svh - 60px);
+    overflow-y: auto;
+    @include breakpoint($brp-992) {
+      height: 575px;
+      margin: 0;
+    }
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin-top: 50px;
+      opacity: 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      width: 4px;
+      background: #FFFFFF;
+      border-radius: 8px;
+    }
+  }
+
+  &__img {
+    aspect-ratio: 128 / 128;
+    flex-shrink: 0;
+    max-width: 130px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 30px;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  &__name{
+    color: var(--color-secondary-txt);
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  &__position {
+    color: var(--color-secondary-txt);
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  &__text {
+    width: 100%;
+    color: var(--color-secondary-txt);
+    p{
+      margin-bottom: 25px;
+      @include r($brp-992){
+        margin-bottom: 35px;
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__close {
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 5px;
+    svg {
+      stroke: var(--color-secondary-txt);
+    }
+  }
+}

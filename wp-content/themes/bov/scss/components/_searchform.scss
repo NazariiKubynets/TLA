@@ -1,0 +1,33 @@
+.search-form{
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  border: 1px solid #E3E0DD;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 320px;
+  width: 100%;
+
+  &__btn{
+    height: 24px;
+    svg{
+      fill: transparent;
+      stroke: #C47900;
+    }
+  }
+
+  &__input{
+    font-size: 16px;
+    color: rgba(7, 7, 7, .6);
+    width: 100%;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &:focus, &:focus-visible{
+      outline: none !important;
+      cursor: text;
+    }
+  }
+}

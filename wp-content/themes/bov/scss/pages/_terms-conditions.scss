@@ -1,0 +1,12 @@
+.terms-conditions{
+  padding-top: 50px;
+  padding-bottom: 50px;
+  @include r($brp-992){
+    padding-top: 80px;
+    padding-bottom: 120px;
+  }
+
+  &__container{
+    max-width: 860px;
+  }
+}

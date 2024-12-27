@@ -1,0 +1,49 @@
+.archive-pagination, .posts-archive__pagination {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  a, span {
+    font-size: 14px;
+    line-height: 1;
+    transition: text-decoration-color 0.6s;
+    text-decoration: none;
+    border-radius: 2px;
+    padding: 9px 12px;
+
+    &:hover {
+      background-color: #E1DDDA;
+    }
+  }
+
+  .page-numbers {
+    svg {
+      fill: transparent;
+      stroke: var(--color-secondary);
+      transition: stroke 0.3s;
+    }
+  }
+
+  .page-numbers:hover {
+    svg {
+      fill: transparent;
+      stroke: var(--color-bg-btn);
+    }
+  }
+
+  .prev, .next {
+    padding: 3px 12px 0;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  span.current {
+    background-color: #E1DDDA;
+    pointer-events: none;
+  }
+
+}

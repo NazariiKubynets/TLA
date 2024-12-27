@@ -1,0 +1,52 @@
+/*
+<ul class="accordion">
+    <li class="accordion__item">
+        <h3 class="visually-hidden">
+        
+        </h3>
+      
+        <button class="accordion__head" type="button">
+          <span>Text</span>
+          <span>Icons</span>
+        </button>
+       
+        <div class="accordion__body">
+            <div class="accordion__body-inner">
+
+            </div>
+        </div>
+    </li>
+</ul>
+*/
+
+.accordion {
+
+  &__item {
+    &.js-open {
+      .accordion__body {
+        grid-template-rows: 1fr;
+      }
+      .accordion__body-inner {
+        visibility: visible;
+      }
+    }
+  }
+
+  &__head {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    transition: grid-template-rows  ease-in-out 0.5s;
+  }
+
+  &__body-inner{
+    min-height: 0;
+    transition: all ease-in-out 0.5s;
+    visibility: hidden;
+  }
+}

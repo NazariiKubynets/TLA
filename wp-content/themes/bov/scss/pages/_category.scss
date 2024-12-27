@@ -1,0 +1,15 @@
+.category-hero {
+  .hero {
+    &__container {
+      @include r($brp-576){
+        align-items: center;
+      }
+    }
+
+    &__img {
+      &::after {
+        background: rgba(7, 7, 7, .2);
+      }
+    }
+  }
+}
