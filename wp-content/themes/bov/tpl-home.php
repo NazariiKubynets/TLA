@@ -19,7 +19,6 @@ $guides = get_field('guides');
 $infoPosts = get_field('info_posts');
 ?>
 
-
 <?php $security = get_field('security') ?>
 
     <section class="home-hero">
@@ -38,14 +37,11 @@ $infoPosts = get_field('info_posts');
                 <?php } ?>
             <?php endif; ?>
         </div>
-        <div class="home-hero__poster">
-            <img class="img" src="<?= $hero['bg_img'] ?>" alt="Background Image">
-        </div>
-        <video class="home-hero__video home-hero__video--desk " muted loop playsinline data-src="<?= $hero['bg_video']['url'] ?>">
-            <source src="" type="video/mp4">
-        </video>
-        <video class="home-hero__video home-hero__video--mobile" muted loop playsinline data-src="<?= $hero['bg_video_mobile']['url'] ?>">
-            <source src="" type="video/mp4">
+<!--        preload="auto"-->
+        <video  class="home-hero__video" poster="<?= $hero['bg_img'] ?>" autoplay loop muted playsinline>
+<!--            <source src="--><?php //= $video_src ?><!--" type="video/mp4">-->
+<!--            <source src="--><?php //= $hero['bg_video']['url'] ?><!--" media="(min-width: 769px)" type="video/mp4">-->
+<!--            <source src="--><?php //= $hero['bg_video_mobile']['url'] ?><!--" media="(max-width: 768px)" type="video/mp4">-->
         </video>
     </section>
 
@@ -106,7 +102,7 @@ $infoPosts = get_field('info_posts');
         </div>
     </section>
 
-    <section class="team">
+    <section id="about-us" class="team">
         <div class="block-info">
             <div class="block-info__container container">
                 <h2 class="block-info__title title-xl">

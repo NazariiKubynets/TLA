@@ -3,7 +3,7 @@
 <?php
 $contact = get_field('contact', 'option');
 $footer = get_field('footer', 'option');
-$socials = $footer['socials'];
+
 
 get_template_part('templates/blocks/_contact', null, [
     'field' => $contact]);
@@ -31,23 +31,29 @@ get_template_part('templates/blocks/_contact', null, [
                         <?php endif; ?>
                     </ul>
                 </nav>
-                <div class="main-footer__contact">
-                    <p class="main-footer__info-text">contacts</p>
-                    <a href="tel:<?= $contact['number_free'] ?>"
-                       class="main-footer__contact-tel"
-                       target="_blank"
-                       rel="nofollow">
-                        <?= $contact['text_number_one'] ?>: <?= $contact['number_free'] ?>
-                    </a>
-                    <a href="tel:<?= $contact['number_direct'] ?>"
-                       class="main-footer__contact-tel"
-                       target="_blank"
-                       rel="nofollow">
+                <div class="main-footer__column-contact">
+                    <div class="main-footer__subscription">
+                        <p class="main-footer__info-text">Subscribe to our Newsletter</p>
+                        <div class="klaviyo-form-VQwcta main-footer__form"></div>
+                    </div>
+                    <div class="main-footer__contact">
+                        <p class="main-footer__info-text">contacts</p>
+                        <a href="tel:<?= str_replace(' ', '', $contact['number_free']) ?>"
+                           class="main-footer__contact-tel"
+                           target="_blank"
+                           rel="nofollow">
+                            <?= $contact['text_number_one'] ?>: <?= $contact['number_free'] ?>
+                        </a>
+                        <a href="tel:<?= str_replace(' ', '', $contact['number_direct']) ?>""
+                        class="main-footer__contact-tel"
+                        target="_blank"
+                        rel="nofollow">
                         <?= $contact['text_number_two'] ?>: <?= $contact['number_direct'] ?>
-                    </a>
-                    <a class="main-footer__btn btn" href="<?= $contact['link_buttons_secondary']['url'] ?>">
-                        <?= $contact['link_buttons_secondary']['title'] ?>
-                    </a>
+                        </a>
+                        <a class="main-footer__btn btn" href="<?= $contact['link_buttons_secondary']['url'] ?>">
+                            <?= $contact['link_buttons_secondary']['title'] ?>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="main-footer__column">
@@ -74,7 +80,17 @@ get_template_part('templates/blocks/_contact', null, [
         </div>
     </div>
 </footer>
-
+<script>
+    window.addEventListener("load", function () {
+        setTimeout(function() {
+            var klaviyoScript = document.createElement("script");
+            klaviyoScript.type = "text/javascript";
+            klaviyoScript.async = true;
+            klaviyoScript.src = "https://static.klaviyo.com/onsite/js/T6ZYT4/klaviyo.js";
+            document.body.appendChild(klaviyoScript);
+        }, 3000);
+    });
+</script>
 
 <?php wp_footer(); ?>
 </body>

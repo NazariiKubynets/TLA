@@ -5,9 +5,9 @@
   background-color: var(--color-primary);
   border-bottom: 1px solid rgba(209, 204, 198, 1);
 
-  &__container{
-    padding: 0!important;
+  &__container.container{
     position: relative;
+    padding: 0;
   }
 
   &__container::before,
@@ -71,7 +71,7 @@
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: .08em;
-    transition: all .3s ease-out;
+    transition: border-bottom .3s ease-out;
     border-bottom: 1px solid rgba(209, 204, 198, 0);
 
     &:hover {

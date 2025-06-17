@@ -1,36 +1,12 @@
-
-
 export default function () {
 
     document.addEventListener("DOMContentLoaded", function () {
         const homeHero = document.querySelector('.home-hero');
         if (!homeHero) return;
-
-        const poster = document.querySelector(".home-hero__poster");
+        const activeVideo = document.querySelector('.home-hero__video');
         const heroTitlesRefs = document.querySelectorAll('h1.home-hero__title, span.home-hero__title');
         const triggerTimes = [1, 6, 11, 16, 21, 26];
         let lastTriggeredTime = null;
-
-        function getActiveVideo() {
-            return window.innerWidth <= 768
-                ? document.querySelector('.home-hero__video--mobile')
-                : document.querySelector('.home-hero__video--desk');
-        }
-
-        function loadVideoWithDelay(video) {
-            const videoSource = video.querySelector("source");
-            const videoSrc = video.getAttribute("data-src");
-
-            if (videoSource && videoSrc) {
-                videoSource.src = videoSrc;
-                video.load();
-
-                video.addEventListener("loadeddata", function () {
-                    poster.classList.add("hidden");
-                    video.play();
-                });
-            }
-        }
 
         function executeAction(second) {
             const index = triggerTimes.indexOf(second);
@@ -44,9 +20,7 @@ export default function () {
             }
         }
 
-        const activeVideo = getActiveVideo();
         if (activeVideo) {
-            loadVideoWithDelay(activeVideo);
 
             activeVideo.addEventListener('timeupdate', () => {
                 const currentTime = Math.floor(activeVideo.currentTime);

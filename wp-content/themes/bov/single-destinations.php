@@ -19,8 +19,7 @@ get_header();
             <?php if ($hero['img']) {
                 echo wp_get_attachment_image($hero['img'], 'large_1920', false, array('class' => 'img'));
             } else { ?>
-                <img class="img" src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                     alt="default-img">
+                <?= wp_get_attachment_image(9717, 'large_1920',true, ['class' => 'img']) ?>
             <?php } ?>
         </div>
         <div class="hero__container container">
@@ -32,20 +31,25 @@ get_header();
         </div>
     </section>
 
-    <?php if (!empty($cognitive['text'])) : ?>
+<?php if (!empty($cognitive['text'])) : ?>
     <section class="toc">
         <div class="toc__container container">
             <ul class="toc__list">
                 <li><a class="toc__title active" href="#introduction">Introduction</a></li>
                 <li><a class="toc__title" href="#tripIdeas">Trip Ideas</a></li>
-                <li><a class="toc__title" href="#needToKnow">Need to know</a></li>
+                <?php if (isset($importantInfo['info']) && !empty($importantInfo['info'])) : ?>
+                    <li><a class="toc__title" href="#needToKnow">Need to know</a></li>
+                <?php endif; ?>
+                <?php if (isset($faq['faq_list']) && !empty($faq['faq_list'])) : ?>
+                    <li><a class="toc__title" href="#faqs">FAQs</a></li>
+                <?php endif; ?>
                 <li><a class="toc__title" href="#inspiration">Inspiration</a></li>
             </ul>
         </div>
     </section>
-    <?php endif; ?>
+<?php endif; ?>
 
-    <?php if (!empty($cognitive['text'])) : ?>
+<?php if (!empty($cognitive['text'])) : ?>
     <section id="introduction" class="cognitive-block">
         <div class="cognitive-block__container container custom-line">
             <div class="cognitive-block__wrap">
@@ -63,7 +67,7 @@ get_header();
                         <a class="cognitive-block__btn btn" href="<?= $cognitive['link']['url'] ?>">
                             <?= !empty($cognitive['link']['title']) ? $cognitive['link']['title'] : "See Featured " . $shortTitle . " Tours" ?>
                         </a>
-                    <?php } else {?>
+                    <?php } else { ?>
                         <a class="cognitive-block__btn btn" href="#tripIdeas">
                             <?= !empty($cognitive['button_name']) ? $cognitive['button_name'] : "See Featured " . $shortTitle . " Tours" ?>
                         </a>
@@ -99,7 +103,7 @@ get_header();
                             <div class="cognitive-block__contact-wrap">
                                 <p class="cognitive-block__contact-text"><?= $contact['text_number_one'] ?></p>
                                 <span class="cognitive-block__line"></span>
-                                <a href="tel:<?= $contact['number_free'] ?>"
+                                <a href="tel:<?= str_replace(' ', '', $contact['number_free']) ?>"
                                    class="cognitive-block__contact-tel"
                                    target="_blank"
                                    rel="nofollow"><?= $contact['number_free'] ?>
@@ -108,12 +112,12 @@ get_header();
                             <div class="cognitive-block__contact-wrap">
                                 <p class="cognitive-block__contact-text">
                                     <?php
-                                        $text = $contact['text_number_two'];
-                                        echo preg_replace('/\s*\(.*?\)/', '', $text);
+                                    $text = $contact['text_number_two'];
+                                    echo preg_replace('/\s*\(.*?\)/', '', $text);
                                     ?>
                                 </p>
                                 <span class="cognitive-block__line"></span>
-                                <a href="tel:<?= $contact['number_direct'] ?>"
+                                <a href="tel:<?= str_replace(' ', '', $contact['number_direct']) ?>"
                                    class="cognitive-block__contact-tel"
                                    target="_blank"
                                    rel="nofollow">
@@ -126,9 +130,9 @@ get_header();
             </div>
         </div>
     </section>
-    <?php endif; ?>
+<?php endif; ?>
 
-    <?php if (!empty($category)) : ?>
+<?php if (!empty($category)) : ?>
     <section id="tripIdeas" class="top-places">
         <div class="top-places__container container custom-line">
             <p class="top-places__subtitle">
@@ -148,9 +152,14 @@ get_header();
                         'post_type' => 'tour',
                         'posts_per_page' => -1,
                         'orderby' => 'date',
-                        'cat' => $category
+                        'tax_query' => array(
+                            array(
+                                'taxonomy' => 'destination',
+                                'field' => 'term_id',
+                                'terms' => $category,
+                            ),
+                        ),
                     );
-
                     $query = new WP_Query($queryArgs);
                     $index = 0;
                     while ($query->have_posts()) {
@@ -168,86 +177,88 @@ get_header();
             </button>
         </div>
     </section>
-    <?php endif; ?>
+<?php endif; ?>
 
-    <?php if (isset($directions['directions_items']) && !empty($directions['directions_items'])) : ?>
+<?php if (isset($directions['directions_items']) && !empty($directions['directions_items'])) : ?>
     <section class="directions">
-            <div class="directions__container container">
-                <p class="directions__subtitle">
-                    <?= $directions['subtitle'] ?>
-                </p>
-                <h2 class="directions__title title-l">
-                    <?= !empty($directions['title']) ? $directions['title'] : $shortTitle . " Principal Destinations" ?>
-                </h2>
-                <div class="directions__swiper-wrap">
-                    <div class="directions__swiper swiper">
-                        <div class="directions__swiper-wrapper swiper-wrapper directions__grid">
-                            <?php foreach ($directions['directions_items'] as $item) { ?>
-                                <div class="directions__swiper-slide swiper-slide">
-                                    <div class="directions__img">
-                                        <?= wp_get_attachment_image_lazy($item['img'], 'medium_large', "img") ?>
-                                    </div>
-                                    <p class="directions__item-text">Discover</p>
-                                    <h3 class="directions__item-title title-m"><?= $item['title'] ?></h3>
+        <div class="directions__container container">
+            <p class="directions__subtitle">
+                <?= $directions['subtitle'] ?>
+            </p>
+            <h2 class="directions__title title-l">
+                <?= !empty($directions['title']) ? $directions['title'] : $shortTitle . " Principal Destinations" ?>
+            </h2>
+            <div class="directions__swiper-wrap">
+                <div class="directions__swiper swiper">
+                    <div class="directions__swiper-wrapper swiper-wrapper directions__grid">
+                        <?php foreach ($directions['directions_items'] as $item) { ?>
+                            <div class="directions__swiper-slide swiper-slide">
+                                <div class="directions__img">
+                                    <?= wp_get_attachment_image_lazy($item['img'], 'medium_large', "img") ?>
                                 </div>
-                            <?php } ?>
-                        </div>
+                                <p class="directions__item-text">Discover</p>
+                                <h3 class="directions__item-title title-m"><?= $item['title'] ?></h3>
+                            </div>
+                        <?php } ?>
                     </div>
-                    <div class="directions__swiper-pagination swiper-pagination"></div>
                 </div>
+                <div class="directions__swiper-pagination swiper-pagination"></div>
             </div>
+        </div>
     </section>
-    <?php endif; ?>
+<?php endif; ?>
 
-    <?php if (isset($importantInfo['info']) && !empty($importantInfo['info'])) : ?>
+<?php if (isset($importantInfo['info']) && !empty($importantInfo['info'])) : ?>
     <section id="needToKnow" class="important-info">
         <div class="important-info__container container">
             <h2 class="important-info__title title-l">
                 <?= !empty($importantInfo['title']) ? $importantInfo['title'] : $shortTitle . " Need To Know " ?>
             </h2>
             <div class="important-info__grid">
-                    <?php foreach ($importantInfo['info'] as $item) { ?>
-                        <div class="important-info__item">
-                            <?= wp_get_attachment_image_lazy($item['icon'], 'thumbnail', "important-info__icon") ?>
-                            <h3 class="important-info__item-title title-s"><?= $item['title'] ?></h3>
-                            <p class="important-info__text"><?= $item['text'] ?></p>
-                        </div>
-                    <?php } ?>
+                <?php foreach ($importantInfo['info'] as $item) { ?>
+                    <div class="important-info__item">
+                        <?= wp_get_attachment_image_lazy($item['icon'], 'thumbnail', "important-info__icon") ?>
+                        <h3 class="important-info__item-title title-s"><?= $item['title'] ?></h3>
+                        <p class="important-info__text"><?= $item['text'] ?></p>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </section>
-    <?php endif; ?>
+<?php endif; ?>
 
-    <?php if (isset($faq['faq_list']) && !empty($faq['faq_list'])) : ?>
-        <section class="faq">
-            <div class="faq__container container custom-line">
-                <div class="faq__wrap">
-                    <h2 class="faq__title title-l"><?= $faq['title'] ?></h2>
-                        <ul class="faq__accordion">
-                            <?php foreach ($faq['faq_list'] as $item): ?>
-                                <li class="faq__accordion-item">
-                                    <h3 class="faq__toggle title-s">
-                                        <?= $item['title'] ?>
-                                        <svg class="faq__icon">
-                                            <use xlink:href="<?= getSvgSpriteUrl() ?>#faq-arrow"/>
-                                        </svg>
-                                    </h3>
-                                    <div class="faq__content">
-                                        <div class="faq__content-box">
-                                            <div class="faq__text">
-                                                <?= $item['content'] ?>
-                                            </div>
-                                        </div>
+<?php if (isset($faq['faq_list']) && !empty($faq['faq_list'])) : ?>
+    <section id="faqs" class="faq">
+        <div class="faq__container container custom-line">
+            <div class="faq__wrap">
+                <h2 class="faq__title title-l">
+                    <?= !empty($faq['title']) ? $faq['title'] : "Luxury " . $shortTitle . " Tours FAQs" ?>
+                </h2>
+                <ul class="faq__accordion">
+                    <?php foreach ($faq['faq_list'] as $item): ?>
+                        <li class="faq__accordion-item">
+                            <h3 class="faq__toggle title-s">
+                                <?= $item['title'] ?>
+                                <svg class="faq__icon">
+                                    <use xlink:href="<?= getSvgSpriteUrl() ?>#faq-arrow"/>
+                                </svg>
+                            </h3>
+                            <div class="faq__content">
+                                <div class="faq__content-box">
+                                    <div class="faq__text">
+                                        <?= $item['content'] ?>
                                     </div>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                </div>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
-        </section>
-    <?php endif; ?>
+        </div>
+    </section>
+<?php endif; ?>
 
-    <?php if (!empty($category)) : ?>
+<?php if (!empty($category)) : ?>
     <section id="inspiration" class="inspiration">
         <div class="inspiration__container container">
             <h2 class="inspiration__title title-l">
@@ -261,11 +272,12 @@ get_header();
                             'className' => 'info-post--destinations-post']);
                     }
                 } else {
+                    $term_obj = get_term($category, 'destination');
                     $queryArgs = array(
                         'post_type' => 'post',
                         'posts_per_page' => 3,
                         'orderby' => 'date',
-                        'cat' => $category
+                        'category_name' => $term_obj->slug
                     );
 
                     $query = new WP_Query($queryArgs);
@@ -281,6 +293,6 @@ get_header();
             </div>
         </div>
     </section>
-    <?php endif; ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>

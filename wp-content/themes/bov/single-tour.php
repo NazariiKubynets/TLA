@@ -1,14 +1,15 @@
 <?php
 $pageId = get_queried_object_id();
-$categories = get_the_category();
+$categories = wp_get_post_terms($pageId, 'destination');
 $hero = get_field('hero');
 $introduction = get_field('introduction');
 $info_blocks = $introduction['info_blocks'];
 $advantages = get_field('advantages', 'option');
 $offers = get_field('offers');
-$urlDestination = get_field('url_singl_destinations', 'category_' . $categories[0]->term_id);
+$urlDestination = get_field('links_to_destination', 'destination_' . $categories[0]->term_id);
 
 get_header();
+
 ?>
 
 <section class="tour-hero hero">
@@ -16,13 +17,12 @@ get_header();
         <?php if (get_the_post_thumbnail($pageId)) {
             echo get_the_post_thumbnail($pageId, 'large_1920', array('class' => 'img'));
         } else { ?>
-            <img class="img" src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                 alt="default-img">
+            <?= wp_get_attachment_image(9717, 'large_1920',true, ['class' => 'img']) ?>
         <?php } ?>
     </div>
     <div class="hero__container container">
         <div class="hero__content">
-            <a class="hero__subtitle" href="<?php echo $urlDestination ?>">
+            <a class="hero__subtitle" href="<?= get_permalink($urlDestination[0]); ?>">
                 <?php if (get_the_category()) {
                     echo esc_html($categories[0]->name);
                 } ?>
@@ -59,8 +59,8 @@ get_header();
                     </div>
                     <?php if (!empty($introduction['img']) || !empty($introduction['video'])) : ?>
                         <?php if (!$introduction['image_video']) { ?>
-                            <div class="introduction__img">
-                                <?= wp_get_attachment_image_lazy($introduction['img'], 'large', 'img') ?>
+                            <div class="introduction__img" data-micromodal-open="modal-tour-photo">
+                                <?= wp_get_attachment_image_lazy($introduction['img'], 'large_1920', 'img') ?>
                             </div>
                         <?php } else { ?>
                             <div class="introduction__video-container">
@@ -90,11 +90,11 @@ get_header();
                             <h3 class="introduction__info-block-title title-s"><?= $info_blocks['expedition_ship_title'] ?></h3>
                             <div class="introduction__info-block-text"><?= $info_blocks['expedition_ship_text'] ?></div>
                             <div class="introduction__info-block-row">
-                                <div class="introduction__info-block-img">
-                                    <?= wp_get_attachment_image_lazy($info_blocks['expedition_ship_image_one'], 'large', 'img') ?>
+                                <div class="introduction__info-block-img" data-micromodal-open="modal-tour-photo">
+                                    <?= wp_get_attachment_image_lazy($info_blocks['expedition_ship_image_one'], 'large_1920', 'img') ?>
                                 </div>
-                                <div class="introduction__info-block-img">
-                                    <?= wp_get_attachment_image_lazy($info_blocks['expedition_ship_image_two'], 'large', 'img') ?>
+                                <div class="introduction__info-block-img" data-micromodal-open="modal-tour-photo">
+                                    <?= wp_get_attachment_image_lazy($info_blocks['expedition_ship_image_two'], 'large_1920', 'img') ?>
                                 </div>
                             </div>
                         </div>
@@ -107,10 +107,14 @@ get_header();
                                 <h3 class="introduction__info-block-title title-s"><?= $info_blocks['route_map_title'] ?></h3>
                                 <div class="introduction__info-block-secondary-text"><?= $info_blocks['route_map_text'] ?></div>
                             </div>
-                            <div class="introduction__info-block-secondary-img">
-                                <?= wp_get_attachment_image_lazy($info_blocks['route_map_image'], 'large', 'img') ?>
+                            <div class="introduction__info-block-secondary-img" data-micromodal-open="modal-tour-photo">
+                                <?= wp_get_attachment_image_lazy($info_blocks['route_map_image'], 'large_1920', 'img') ?>
                             </div>
                         </div>
+                    <?php endif; ?>
+
+                    <?php if (!empty($introduction['img']) || $info_blocks['show_route_map'] || $info_blocks['show_expedition_ship']) : ?>
+                        <?php get_template_part('templates/modals/_tour-photo', null,); ?>
                     <?php endif; ?>
 
                     <?php if (isset($introduction['slides_image']) && !empty($introduction['slides_image'])) : ?>
@@ -118,9 +122,9 @@ get_header();
                             <div class="introduction__swiper swiper">
                                 <div class="introduction__swiper-wrapper swiper-wrapper">
                                     <?php foreach ($introduction['slides_image'] as $slide) { ?>
-                                        <div class="introduction__swiper-slide swiper-slide">
+                                        <div class="introduction__swiper-slide swiper-slide" data-micromodal-open="modal-tour-photos">
                                             <?= wp_get_attachment_image_lazy($slide, 'large', 'img') ?>
-                                            <span class="introduction__caption"><?= wp_get_attachment_caption($slide)?></span>
+                                            <span class="introduction__caption"><?= wp_get_attachment_caption($slide) ?></span>
                                         </div>
                                     <?php } ?>
                                 </div>
@@ -139,6 +143,7 @@ get_header();
                                 </div>
                             </div>
                         </div>
+                        <?php get_template_part('templates/modals/_tour-photos', null, ['introduction' => $introduction]); ?>
                     <?php endif; ?>
 
                     <ul id="itinerary" class="introduction__descriptions">
@@ -165,16 +170,20 @@ get_header();
                             </h2>
                             <div class="introduction__information-tabs">
                                 <div class="introduction__information-tabs-wrap">
-                                    <ul class="introduction__information-toggles">
-                                        <?php foreach ($introduction['informations_tabs'] as $index => $item): ?>
-                                            <li class="introduction__information-toggle">
-                                                <button class="introduction__information-btn <?php echo $index === 0 ? 'active' : ''; ?>"
-                                                        data-tab="tab-<?= $index; ?>">
-                                                    <?= $item['title'] ?>
-                                                </button>
-                                            </li>
-                                        <?php endforeach; ?>
-                                    </ul>
+                                    <div class="introduction__information-toggles">
+                                        <div class="introduction__swiper-tabs swiper">
+                                            <ul class="introduction__swiper-wrapper-tabs swiper-wrapper">
+                                                <?php foreach ($introduction['informations_tabs'] as $index => $item): ?>
+                                                    <li class="introduction__information-toggle swiper-slide">
+                                                        <button class="introduction__information-btn <?php echo $index === 0 ? 'active' : ''; ?>"
+                                                                data-tab="tab-<?= $index; ?>">
+                                                            <?= $item['title'] ?>
+                                                        </button>
+                                                    </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="introduction__information-content">
                                     <?php
@@ -205,7 +214,6 @@ get_header();
                                                     <div class=""><?= $tab['right_list'] ?></div>
                                                 </div>
                                             </div>
-
                                             <?php continue;
                                         }
                                     } ?>
@@ -263,9 +271,7 @@ get_header();
                                     <?php if (get_the_post_thumbnail($post->ID)) {
                                         echo get_the_post_thumbnail($post->ID, '1536x1536', array('class' => 'img'));
                                     } else { ?>
-                                        <img class="img"
-                                             src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                                             alt="default-img">
+                                        <?= wp_get_attachment_image_lazy(9717, 'large_1920', 'img') ?>
                                     <?php } ?>
                                 </div>
                                 <div class="tour-post__content">
@@ -281,7 +287,14 @@ get_header();
                             'post_type' => 'tour',
                             'posts_per_page' => 9,
                             'orderby' => 'date',
-                            'cat' => $categories[0]->term_id
+                            'tax_query' => array(
+                                array(
+                                    'taxonomy' => 'destination',
+                                    'field' => 'term_id',
+                                    'terms' => $categories[0]->term_id,
+                                ),
+                            ),
+
                         );
 
                         $query = new WP_Query($queryArgs);
@@ -292,9 +305,7 @@ get_header();
                                     <?php if (get_the_post_thumbnail($post->ID)) {
                                         echo get_the_post_thumbnail($post->ID, '1536x1536', array('class' => 'img'));
                                     } else { ?>
-                                        <img class="img"
-                                             src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                                             alt="default-img">
+                                        <?= wp_get_attachment_image_lazy(9717, 'large_1920', 'img') ?>
                                     <?php } ?>
                                 </div>
                                 <div class="tour-post__content">

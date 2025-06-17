@@ -1,0 +1,89 @@
+.author-hero{
+  margin-bottom: 50px;
+  @include r($brp-768) {
+    margin-bottom: 80px;
+  }
+
+  &__bg{
+    display: block;
+    width: 100%;
+    height: 105px;
+    background-color: var(--color-secondary);
+    @include r($brp-992){
+      height: 160px;
+    }
+  }
+
+  &__row {
+    padding-top: 40px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+
+    @include r($brp-640) {
+      margin-bottom: 50px;
+    }
+    @include r($brp-992){
+      padding-top: 50px;
+    }
+  }
+
+  &__avatar {
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    @include fluidSize(80px, 100px, 390px, 1200px, 'max-width');
+    width: 100%;
+    height: auto;
+  }
+
+  &__author-name {
+    font-family: $palatino;
+  }
+
+  &__content{
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+    @include r($brp-992){
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  &__content:has(:only-child.author-hero__text) .author-hero__text {
+    max-width: 100%;
+  }
+
+  &__text{
+    flex: 1;
+    @include r($brp-992){
+      max-width: 50%;
+    }
+  }
+
+  &__img{
+    aspect-ratio: 750/750;
+    flex: 1;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 20px;
+
+    @include r($brp-576){
+      margin: 0 auto;
+      width: 70%;
+    }
+
+    @include r($brp-768){
+      width: 60%;
+    }
+
+    @include r($brp-992){
+      margin: 0;
+      width: 100%;
+      max-width: 500px;
+    }
+  }
+}

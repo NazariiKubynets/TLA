@@ -11,9 +11,7 @@ $hero = get_field('hero', $pageId);
         <?php if (has_post_thumbnail($pageId)) {
             echo get_the_post_thumbnail($pageId, 'large_1920', array('class' => 'img'));
         } else { ?>
-            <img class="img"
-                 src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                 alt="default-img">
+            <?= wp_get_attachment_image(9717, 'large_1920',true, ['class' => 'img']) ?>
         <?php } ?>
     </div>
     <div class="hero__container container">
@@ -50,7 +48,19 @@ $hero = get_field('hero', $pageId);
     if (!empty($search_query)) {
         $args['s'] = $search_query;
     }
-    $query = new WP_Query($args); ?>
+    $query = new WP_Query($args);
+    $show = 1;
+    if(!$query->have_posts()) {
+        $show = 0;
+        $args = array(
+            'post_type' => 'post',
+            'paged' => $paged,
+            'orderby' => 'date',
+            'order' => 'DESC'
+        );
+        $query = new WP_Query($args);
+    }
+    ?>
 
     <div class="posts-archive__container container">
         <div class="posts-archive__search-filter">
@@ -59,7 +69,7 @@ $hero = get_field('hero', $pageId);
             </div>
             <div class="posts-archive__filter">
                 <div class="posts-archive__filter-header">
-                    <span class="posts-archive__filter-title">Countries:</span>
+                    <span class="posts-archive__filter-title">Categories:</span>
                     <span class="posts-archive__filter-selected">
                         <?php
                         if (!empty($categories_id)) {
@@ -103,7 +113,6 @@ $hero = get_field('hero', $pageId);
                                 <?= $category->name ?>
                             </label>
                         <?php } ?>
-
                     <?php endif; ?>
                 </form>
             </div>
@@ -111,6 +120,10 @@ $hero = get_field('hero', $pageId);
         <?php
         get_template_part('templates/items/_loading-indicator', null);
         ?>
+        <div class="posts-archive__posts-none <?= $show ? "hide" : ''?>">
+            <p class="posts-archive__posts-none-info">Posts not found!</p>
+            <h2 class="title-l">Destination Inspiration</h2>
+        </div>
         <div class="archive-posts__grid">
             <?php if ($query->have_posts()) :
                 $post_count = 0;
@@ -122,7 +135,7 @@ $hero = get_field('hero', $pageId);
                 <?php endwhile;
                 wp_reset_postdata();
             else :
-                echo "Posts not found.";
+                echo "Posts not found!";
             endif; ?>
         </div>
         <div class="posts-archive__pagination">
@@ -158,8 +171,8 @@ $finalurl = $pos ? substr($current_url, 0, $pos) : $current_url;
         $ = jQuery;
         let categories = getCheckedCategories();
         let query = $('.hero__title').data('search-query') || '';
-        let morePosts = 1;
-        let $firstPost = 0;
+        let typingTimer;
+        let doneTypingInterval = 500;
         $('.loading-indicator').hide();
         $('.archive-posts__grid').addClass('visible');
 
@@ -171,13 +184,25 @@ $finalurl = $pos ? substr($current_url, 0, $pos) : $current_url;
             return categories;
         }
 
-
-        function scrollFirstPosts() {
-            const $firstPost = $('#first-post');
-            if ($firstPost.length) {
-                $('html, body').animate({
-                    scrollTop: $firstPost.offset().top - 200
-                }, 600);
+        const animationsShowItem = () => {
+            const laptopScreen = window.matchMedia('(min-width: 992px)');
+            if (laptopScreen.matches) {
+                const items = document.querySelectorAll('.archive-posts__post-item');
+                items.forEach((item, index) => {
+                    const delay = (index % 3) * 0.25;
+                    gsap.to(item, {
+                        opacity: 1,
+                        y: 0,
+                        ease: 'power3.out',
+                        duration: 0.25,
+                        delay: delay,
+                        scrollTrigger: {
+                            trigger: item,
+                            start: 'top 90%',
+                            toggleActions: 'play none none none',
+                        },
+                    });
+                });
             }
         }
 
@@ -206,19 +231,15 @@ $finalurl = $pos ? substr($current_url, 0, $pos) : $current_url;
             });
         }
 
-        if (window.location.search != "") {
-            $('html, body').scrollTop($(".posts-archive").offset().top);
-        }
-
         function formateUrl() {
             let url = "";
             if (query) {
                 url = `?s=${encodeURIComponent(query)}`;
                 if (categories.length > 0) {
-                    url += `&countries=${categories.join()}`;
+                    url += `&categories=${categories.join()}`;
                 }
             } else if (categories.length > 0) {
-                url = `?countries=${categories.join()}`;
+                url = `?categories=${categories.join()}`;
             }
             history.pushState({}, null, blogData.blog_url + url);
         }
@@ -240,14 +261,14 @@ $finalurl = $pos ? substr($current_url, 0, $pos) : $current_url;
                     $('.loading-indicator').show();
                     $('.archive-posts__grid').removeClass('visible');
                     $('.posts-archive__pagination').addClass('hide');
-
                 },
                 success: function (response) {
                     setTimeout(function () {
-                        if (morePosts) {
+                        if(response.grid){
+                            $('.posts-archive__posts-none').addClass('hide');
                             $('.archive-posts__grid').html(response.grid);
-                        } else {
-                            $('.archive-posts__grid').append(response.grid);
+                        }else{
+                            $('.posts-archive__posts-none').removeClass('hide');
                         }
 
                         $('.posts-archive__pagination').html(response.pagination);
@@ -260,12 +281,9 @@ $finalurl = $pos ? substr($current_url, 0, $pos) : $current_url;
                             $('.posts-archive__filter-count').removeClass('active');
                         }
 
-                        if ($firstPost) {
-                            scrollFirstPosts();
-                        }
-
                         listCategories();
                         $('.loading-indicator').hide();
+                        animationsShowItem();
                         $('.archive-posts__grid').addClass('visible');
                         $('.posts-archive__pagination').removeClass('hide');
                     }, 100);
@@ -273,28 +291,24 @@ $finalurl = $pos ? substr($current_url, 0, $pos) : $current_url;
             });
         }
 
-        //search-form
-        $('.search-form').on('submit', function (e) {
-            e.preventDefault();
+        // search-form
+        $('.search-form__input').on('input', function () {
+            clearTimeout(typingTimer);
             let categoriesString = categories.join(',');
 
-            query = $(this).find('.search-form__input').val();
-            let url;
+            query = $(this).val();
             categories = getCheckedCategories();
-            morePosts = 1;
-            $firstPost = 0;
-            load_posts(categories);
 
+            typingTimer = setTimeout(function () {
+                load_posts(categories);
+            }, doneTypingInterval);
         });
 
         // filter categories
         $('.posts-archive__filter-list').on('change', function () {
             categories = getCheckedCategories();
-            morePosts = 1;
-            $firstPost = 0;
             load_posts(categories);
         });
-
 
     });
 </script>

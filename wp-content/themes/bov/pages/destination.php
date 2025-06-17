@@ -21,8 +21,7 @@ get_header();
         <?php if ($hero['img']) {
             echo wp_get_attachment_image($hero['img'], 'large_1920', false, array('class' => 'img'));
         } else { ?>
-            <img class="img" src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                 alt="default-img">
+            <?= wp_get_attachment_image(9717, 'large_1920',true, ['class' => 'img']) ?>
         <?php } ?>
     </div>
     <div class="hero__container container">
@@ -39,6 +38,7 @@ get_header();
         <ul class="toc__list">
             <li><a class="toc__title active" href="#destinationIntroduction">Introduction</a></li>
             <li><a class="toc__title" href="#destinationTripIdeas">Trip Ideas</a></li>
+            <li><a class="toc__title" href="#destinationFAQs">FAQs</a></li>
             <li><a class="toc__title" href="#destinationInspiration">Inspiration</a></li>
         </ul>
     </div>
@@ -97,7 +97,7 @@ get_header();
                         <div class="cognitive-block__contact-wrap">
                             <p class="cognitive-block__contact-text"><?= $contact['text_number_one'] ?></p>
                             <span class="cognitive-block__line"></span>
-                            <a href="tel:<?= $contact['number_free'] ?>"
+                            <a href="tel:<?= str_replace(' ', '', $contact['number_free']) ?>"
                                class="cognitive-block__contact-tel"
                                target="_blank"
                                rel="nofollow"><?= $contact['number_free'] ?>
@@ -111,7 +111,7 @@ get_header();
                                 ?>
                             </p>
                             <span class="cognitive-block__line"></span>
-                            <a href="tel:<?= $contact['number_direct'] ?>"
+                            <a href="tel:<?= str_replace(' ', '', $contact['number_direct']) ?>"
                                class="cognitive-block__contact-tel"
                                target="_blank"
                                rel="nofollow">
@@ -181,7 +181,7 @@ get_header();
             } else {
                 $queryArgs = array(
                     'post_type' => 'destinations',
-                    'posts_per_page' => 6,
+                    'posts_per_page' => -1,
                     'orderby' => 'date',
                 );
 
@@ -199,7 +199,7 @@ get_header();
     </div>
 </section>
 
-<section class="faq">
+<section id="destinationFAQs" class="faq">
     <div class="faq__container container custom-line">
         <div class="faq__wrap">
             <h2 class="faq__title title-l"><?= $faq['title'] ?></h2>

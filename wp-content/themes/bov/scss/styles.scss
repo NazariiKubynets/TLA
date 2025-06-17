@@ -9,7 +9,6 @@
 @import "components/toc";
 @import "components/archive-posts";
 @import "components/contact-form";
-@import "components/form";
 @import "components/header";
 @import "components/menu";
 @import "components/micromodal";
@@ -19,6 +18,7 @@
 @import "components/img";
 @import "components/searchform";
 @import "components/modal-worker";
+@import "components/modal-tour-photos";
 @import "components/footer";
 
 
@@ -26,6 +26,7 @@
 @import "templates-block/loading-indicator";
 @import "templates-block/leadership";
 @import "templates-block/contact";
+@import "templates-block/faq";
 
 
 //items
@@ -53,6 +54,7 @@
 
 
 //Singles
+@import "singles/author";
 @import "singles/blog-post";
 @import "singles/destinations";
 @import "singles/tour";

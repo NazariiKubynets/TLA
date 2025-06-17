@@ -14,7 +14,7 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(1, minmax(320px, 1fr));
+    grid-template-columns: repeat(1, minmax(270px, 1fr));
     justify-items: center;
     column-gap: 25px;
     row-gap: 30px;
@@ -31,6 +31,10 @@
     cursor: pointer;
     transition: $transition-style-medium;
     height: fit-content;
+    @include r($brp-992){
+      transform: translate(0px, 80px);
+      opacity: 0;
+    }
 
     &:hover {
       .leadership__img::before {
@@ -51,7 +55,6 @@
     aspect-ratio: 26 / 25;
     position: relative;
     width: 100%;
-    //max-height: 320px;
     height: auto;
     margin-bottom: 15px;
     border-radius: 10px;

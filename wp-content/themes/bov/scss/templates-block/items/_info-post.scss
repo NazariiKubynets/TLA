@@ -4,6 +4,9 @@
   flex-direction: column;
   width: 100%;
   transition: $transition-style-fast;
+  @include r($brp-992){
+    opacity: 0;
+  }
   &:hover {
     .info-post__img{
       opacity: .75;

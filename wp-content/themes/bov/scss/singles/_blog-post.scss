@@ -1,4 +1,4 @@
-.blog-post{
+.blog-post {
   padding-top: 50px;
   padding-bottom: 50px;
   @include r($brp-992) {
@@ -6,14 +6,14 @@
     padding-bottom: 120px;
   }
 
-  &__container{
+  &__container {
     max-width: 860px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  &__header{
+  &__header {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -22,131 +22,196 @@
     margin-bottom: 40px;
     border-bottom: 1px solid #D1CCC6;
 
-    @include r($brp-576){
+    @include r($brp-576) {
       flex-direction: row;
       justify-content: space-between;
     }
 
-    @include breakpoint($brp-640){
+    @include r($brp-640) {
       align-items: center;
     }
 
-    @include breakpoint($brp-992){
+    @include r($brp-992) {
       padding-bottom: 60px;
       margin-bottom: 60px;
     }
   }
 
-  &__row{
+  &__row {
     display: flex;
     gap: 20px;
 
-    @include breakpoint($brp-640){
+    @include r($brp-640) {
       align-items: center;
     }
   }
 
-  &__avatar{
+  &__avatar {
     flex-shrink: 0;
     overflow: hidden;
     border-radius: 50%;
     max-width: 64px;
     width: 100%;
     height: auto;
-    img{
-
-    }
   }
 
-  &__data{
+  &__data {
     width: fit-content;
   }
 
-  &__author-name{
+  &__author-name {
     font-family: $palatino;
+    @include underline-hover($height: 4px);
   }
 
-  &__date{
+  &__date {
     opacity: .8;
     font-size: 16px;
     margin-bottom: 5px;
   }
 
-  &__views{
+  &__views {
     display: flex;
     align-items: center;
     color: rgba(7, 7, 7, .8);
     font-size: 16px;
-    svg{
+
+    svg {
       fill: transparent;
       stroke: #070707;
       margin-right: 10px;
     }
 
-    &:last-child{
+    &:last-child {
       padding-left: 20px;
       border-left: 1px solid #D1CCC6;
     }
   }
 
-  &__content{
+  &__content {
     width: 100%;
     margin-bottom: 50px;
-    @include r($brp-992){
+    @include r($brp-992) {
       margin-bottom: 100px;
     }
 
-    .wp-block-video, .wp-block-embed{
+    p + .wp-block-video, ul + .wp-block-video, h2 + .wp-block-video, h3 + .wp-block-video, h4 + .wp-block-video, .wp-block-video + .wp-block-video {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    p + .wp-block-embed, ul + .wp-block-embed, h2 + .wp-block-embed, h3 + .wp-block-embed, h4 + .wp-block-embed, h5 + .wp-block-embed, h6 + .wp-block-embed, .wp-block-embed + .wp-block-embed {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    .wp-block-video, .wp-block-embed {
       border-radius: 12px;
       overflow: hidden;
-      margin-bottom: 45px;
 
-      video{
+      video {
         border-radius: 12px;
       }
+    }
 
-      @include breakpoint($brp-992){
-        margin-bottom: 60px;
+    p + .wp-block-image, ul + .wp-block-image, h1 + .wp-block-image, h2 + .wp-block-image, h3 + .wp-block-image, h4 + .wp-block-image, h5 + .wp-block-image, h6 + .wp-block-image, .wp-block-image + .wp-block-image, blockquote + .wp-block-image {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
       }
     }
 
-    .wp-block-image{
+    .wp-block-image {
       position: relative;
       border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 60px;
 
-      img{
+      figure {
+        margin: 0;
+      }
+
+      img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
-
-      @include r($brp-992){
-        margin-left: -80px;
-        margin-right: -80px;
-      }
     }
 
-    h2:has(span) img, div:has(img){
+    div:has(img) {
       position: relative;
       border-radius: 10px;
       overflow: hidden;
-      margin-bottom: 60px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      width: 100% !important;
+      max-width: 100% !important;
 
-      img{
+      img {
         width: 100%;
         height: 100%;
+        max-width: 100% !important;
         object-fit: cover;
-      }
-
-      @include r($brp-992){
-        margin-left: -80px;
-        margin-right: -80px;
       }
     }
 
-    .wp-element-caption, div:has(img) p{
+    p + div:has(img), ul + div:has(img), div:has(img) + div:has(img), h1 + div:has(img), h2 + div:has(img), h3 + div:has(img), h4 + div:has(img), h5 + div:has(img), h6 + div:has(img) {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    div:first-child {
+      margin-top: 0;
+    }
+
+    span {
+      figure {
+        margin-bottom: 45px;
+        @include r($brp-992) {
+          margin-bottom: 60px;
+        }
+      }
+    }
+
+    p + figure, ul + figure, h2 + figure, h3 + figure, h4 + figure {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    h2 {
+      figure {
+        margin-bottom: 45px;
+        @include r($brp-992) {
+          margin-bottom: 60px;
+        }
+      }
+    }
+
+    figure {
+      width: 100%;
+
+      img {
+        border-radius: 10px;
+        width: 100%;
+      }
+    }
+
+    p:has(b), p:has(img) {
+      img {
+        width: 100%;
+        border-radius: 10px;
+      }
+    }
+
+    .wp-element-caption, div:has(img) p {
       width: fit-content;
       display: flex;
       align-items: center;
@@ -161,14 +226,14 @@
       padding: 8px 12px;
       border-radius: 2px;
 
-      @include r($brp-768){
+      @include r($brp-768) {
         left: 25px;
         bottom: 25px;
         right: 25px;
         font-size: 12px;
       }
 
-      &:before{
+      &:before {
         flex-shrink: 0;
         display: inline-block;
         content: '';
@@ -180,59 +245,227 @@
       }
     }
 
-    h2{
+    h1 {
+      @include fluidSize(40px, 64px, 390px, 1200px, 'font-size');
+      letter-spacing: -.02em;
+      line-height: 1.12;
+    }
+
+    h1:has(img) {
+      b + span {
+        display: block;
+        margin-top: 45px;
+        @include r($brp-992) {
+          margin-top: 60px;
+        }
+      }
+    }
+
+    h1 b:has(figure) {
+      br {
+        display: none;
+      }
+    }
+
+    h1 b:has(figure) figure {
+      margin-bottom: 45px;
+
+      @include r($brp-992) {
+        margin-bottom: 60px;
+      }
+    }
+
+    p + h1, ul + h1, div + h1, h1 + h1 {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    h2 {
       @include fluidSize(40px, 48px, 390px, 1200px, 'font-size');
       letter-spacing: -.02em;
-      margin-bottom: 40px;
       line-height: 1.12;
     }
-    h3,h4,h5{
+
+    h2:has(figure) br {
+      display: none;
+    }
+
+    p + h2, ul + h2, div + h2, span + h2, h1 + h2, h2 + h2, h3 + h2, h4 + h2, h5 + h2, h6 + h2 {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    figure + h2, .wp-block-embed + h2, .wp-block-video + h2, .wp-block-image + h2, div:has(img) + h2 {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    figure + h3, .wp-block-embed + h3, .wp-block-video + h3, .wp-block-image + h3, div:has(img) + h3 {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    .wp-block-embed + h3, .wp-block-video + h3, .wp-block-image + h3 {
+      margin-top: 30px;
+    }
+
+    p + h3, ul + h3, div + h3, p + h4, ul + h4, p + h5, ul + h5, p + h6, ul + h6 {
+      margin-top: 40px;
+    }
+
+    h3 {
       @include fluidSize(22px, 28px, 390px, 1200px, 'font-size');
       line-height: 1.12;
-      margin-bottom: 25px;
     }
 
-    p{
-      margin-bottom: 50px;
-      @include br($brp-1140);
+    h3:has(figure) figure {
+      margin-bottom: 45px;
 
-      &:last-child{
-        margin-bottom: 0;
+      @include r($brp-992) {
+        margin-bottom: 60px;
+      }
+    }
+
+    h1 + h3, h2 + h3, h3 + h3, h4 + h3, h5 + h3, h6 + h3, {
+      margin-top: 40px;
+    }
+
+    .wp-block-embed + h4, .wp-block-video + h4, .wp-block-image + h4 {
+      margin-top: 30px;
+    }
+
+    h4 {
+      @include fluidSize(20px, 24px, 390px, 1200px, 'font-size');
+      line-height: 1.12;
+    }
+
+    h1 + h4, h2 + h4, h3 + h4, h4 + h4, h5 + h4, h6 + h4, {
+      margin-top: 30px;
+    }
+
+    h5 {
+      @include fluidSize(18px, 22px, 390px, 1200px, 'font-size');
+      line-height: 1.12;
+    }
+
+    h1 + h5, h2 + h5, h3 + h5, h4 + h5, h5 + h5, h6 + h5, {
+      margin-top: 20px;
+    }
+
+    h1 + p, h2 + p, ul + p, p + p, div + p, span + p, blockquote + p {
+      margin-top: 25px;
+    }
+
+    h3 + p, h4 + p, h5 + p, h6 + p {
+      margin-top: 25px;
+    }
+
+    figure + p, .wp-block-video + p, .wp-block-embed + p, .wp-block-image + p, div:has(img) + p {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
+      }
+    }
+
+    p:has(img) {
+      picture {
+        display: block;
+        margin-bottom: 25px;
       }
 
-      b{
+      img {
+        margin-bottom: 25px;
+      }
+    }
+
+    p:has(span) {
+      span:has(img) {
+        img {
+          margin-top: 45px;
+          @include r($brp-992) {
+            margin-top: 60px;
+          }
+        }
+      }
+    }
+
+    p {
+      br {
+        display: none;
+      }
+
+      b {
         font-weight: 600;
       }
+
+      span {
+        color: var(--color-text);
+        font-family: $inter;
+        font-size: 18px;
+      }
     }
 
-    a{
-      @include underline-hover(rgba(7, 7, 7, 0.2));
-      color: rgba(142, 131, 57, 1);
+    p + blockquote {
+      margin-top: 25px;
+    }
+
+    a {
+      @include underline-hover();
+      color: rgba(142, 131, 57, 1) !important;
+
       &:hover::after {
         width: 100%;
       }
     }
 
-    ul{
-      margin-bottom: 50px;
-      padding-left: 30px;
-      &:last-child{
-        margin-bottom: 0;
+    figure + ul, .wp-block-embed + ul, .wp-block-video + ul, .wp-block-image + ul, div:has(img) + ul {
+      margin-top: 45px;
+      @include r($brp-992) {
+        margin-top: 60px;
       }
+    }
 
-      li{
+    h2 + ul, h3 + ul, h4 + ul, p + ul, ul + ul div + ul {
+      margin-top: 25px;
+    }
+
+    ul {
+      padding-left: 30px;
+
+      li {
         list-style-type: disc;
         list-style-position: outside;
         margin-bottom: 10px;
 
-        &:last-child{
+        a {
+          @include underline-hover();
+          color: rgba(142, 131, 57, 1) !important;
+
+          &:hover::after {
+            width: 100%;
+          }
+        }
+
+        &:last-child {
           margin-bottom: 0;
+        }
+
+        ul {
+          margin-top: 25px;
         }
       }
     }
   }
 
-  &__contact-us{
+  &__contact-us {
     width: 100%;
     display: flex;
     gap: 25px;
@@ -242,41 +475,42 @@
     background-color: var(--color-secondary);
     border-radius: 10px;
     padding: 15px 25px;
-    @include r($brp-640){
+    @include r($brp-640) {
       padding: 30px 40px;
     }
   }
 
-  &__contact-us-text{
+  &__contact-us-text {
     line-height: 1.12;
     font-family: $palatino;
     color: var(--color-secondary-txt);
 
-    @include r($brp-576){
+    @include r($brp-576) {
       max-width: 290px;
     }
   }
 
-  &__contact-us-btn{
+  &__contact-us-btn {
     padding: 15px 25px;
   }
 
 }
 
-.similar-articles{
+.similar-articles {
   padding-bottom: 50px;
-  @include r($brp-992){
+  @include r($brp-992) {
     padding-bottom: 120px;
   }
 
-  .custom-line{
+  .custom-line {
     padding-top: 50px;
     padding-bottom: 0px;
-    @include r($brp-992){
+    @include r($brp-992) {
       padding-top: 100px;
       padding-bottom: 0px;
     }
-    &:before, &:after{
+
+    &:before, &:after {
       top: 0;
     }
   }
@@ -291,7 +525,7 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(1, minmax(320px, 1fr));
+    grid-template-columns: repeat(1, minmax(270px, 1fr));
     justify-items: center;
     column-gap: 25px;
     row-gap: 30px;
@@ -304,16 +538,17 @@
     }
   }
 
-  &__post{
+  &__post {
     transition: .6s ease-in-out;
     position: static;
     width: 100%;
 
     &:hover {
-      .similar-articles__post-img{
+      .similar-articles__post-img {
         opacity: .75;
       }
-      .similar-articles__post-title{
+
+      .similar-articles__post-title {
         text-decoration-color: var(--color-text);
       }
     }
@@ -328,7 +563,7 @@
     border-radius: 10px;
     overflow: hidden;
     transition: $transition-style-fast;
-    @include r($brp-640){
+    @include r($brp-640) {
       max-height: 320px;
     }
 
@@ -337,7 +572,7 @@
     }
   }
 
-  &__post-category{
+  &__post-category {
     width: fit-content;
     border-radius: 2px;
     text-transform: uppercase;
@@ -362,7 +597,7 @@
     }
   }
 
-  &__post-date{
+  &__post-date {
     font-size: 16px;
     opacity: .6;
     font-family: $GT-America;

@@ -67,7 +67,7 @@ function create_tour_type()
         'show_in_menu'       => true,
         'query_var'          => true,
         'rewrite'             => array(
-            'slug'       => 'tour/%category%',
+            'slug'       => 'tour/%destination%',
             'with_front' => false,
         ),
         'capability_type'    => 'post',
@@ -75,7 +75,7 @@ function create_tour_type()
         'hierarchical'       => false,
         'menu_position'      => null,
         'supports'           => array('title', 'editor', 'thumbnail', 'excerpt'),
-        'taxonomies'         => array('category'),
+        'taxonomies'         => array('destination'),
         'show_in_rest'       => true,
     );
 
@@ -84,14 +84,53 @@ function create_tour_type()
 
 add_action('init', 'create_tour_type');
 
+function create_destination_taxonomy()
+{
+    $labels = array(
+        'name'              => _x('Destinations', 'taxonomy general name', 'textdomain'),
+        'singular_name'     => _x('Destination', 'taxonomy singular name', 'textdomain'),
+        'search_items'      => __('Search Destinations', 'textdomain'),
+        'all_items'         => __('All Destinations', 'textdomain'),
+        'parent_item'       => __('Parent Destination', 'textdomain'),
+        'parent_item_colon' => __('Parent Destination:', 'textdomain'),
+        'edit_item'         => __('Edit Destination', 'textdomain'),
+        'update_item'       => __('Update Destination', 'textdomain'),
+        'add_new_item'      => __('Add New Destination', 'textdomain'),
+        'new_item_name'     => __('New Destination Name', 'textdomain'),
+        'menu_name'         => __('Destinations', 'textdomain'),
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'rewrite'           => array('slug' => 'destination', 'with_front' => false ),
+        'show_in_rest'      => true,
+    );
+
+    register_taxonomy('destination', array('tour'), $args);
+}
+
+add_action('init', 'create_destination_taxonomy');
+
 function custom_post_type_permalink($post_link, $post)
 {
+
     if ($post->post_type === 'tour') {
-        $terms = wp_get_post_terms($post->ID, 'category');
+        $terms = wp_get_post_terms($post->ID, 'destination');
         if (!empty($terms) && !is_wp_error($terms)) {
-            $post_link = str_replace('%category%', $terms[0]->slug, $post_link);
+
+            $primary_term = intval(get_post_meta( $post->ID, '_yoast_wpseo_primary_destination', true ));
+            if(isset($primary_term) && $primary_term != 0) {
+                $term_slug = get_term( $primary_term, 'destination')->slug;
+            } else {
+                $term_slug = $terms[0]->slug;
+            }
+            $post_link = str_replace('%destination%', $term_slug, $post_link);
         } else {
-            $post_link = str_replace('%category%', 'uncategorized', $post_link);
+            $post_link = str_replace('%destination%', 'uncategorized', $post_link);
         }
     }
     return $post_link;
@@ -137,3 +176,49 @@ function create_testimonials_type()
 }
 
 add_action('init', 'create_testimonials_type');
+
+function custom_redirects() {
+
+   global $wp_query;
+   if($wp_query->get( 'destination' ) && isset($wp_query->posts) && isset($wp_query->posts[0])) {
+       $post = $wp_query->posts[0];
+       if ($post->post_type === 'tour') {
+           $terms = wp_get_post_terms($post->ID, 'destination');
+           $primary_term = intval(get_post_meta( $post->ID, '_yoast_wpseo_primary_destination', true ));
+           if(isset($primary_term) && $primary_term != 0) {
+               $term_slug = get_term( $primary_term, 'destination')->slug;
+           } else {
+               $term_slug = $terms[0]->slug;
+           }
+           if (empty($terms) || $term_slug != $wp_query->get( 'destination' )) {
+               $wp_query->set_404();
+               status_header(404);
+           }
+       }
+   }
+
+
+}
+add_action( 'template_redirect', 'custom_redirects' );
+
+function add_post_views_metabox() {
+    add_meta_box(
+        'post_views_metabox',
+        'Post Views',
+        'render_post_views_metabox',
+        'post',
+        'side',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'add_post_views_metabox');
+
+function render_post_views_metabox($post) {
+    $total_views = get_post_views($post->ID);
+    $daily_views = function_exists('get_daily_post_views') ? get_daily_post_views($post->ID) : 'N/A';
+    ?>
+    <p><strong>Total Views:</strong> <?= esc_html($total_views); ?></p>
+    <p><strong>Today's Views:</strong> <?= esc_html($daily_views); ?></p>
+    <?php
+}
+

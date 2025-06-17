@@ -84,7 +84,7 @@ function base64_encode_image( $filename, $filetype = 'png' ) {
  * @param string $fieldName
  * @param string $size
  *
- * @return string тег картинки
+ * @return string teg picture
  */
 function getACFImage( $fieldName, $size = 'full' ) {
   $imgId = get_field( $fieldName );
@@ -94,7 +94,7 @@ function getACFImage( $fieldName, $size = 'full' ) {
 
 
 /**
- * Builds <img> тег для lazy изображений
+ * Builds <img> teg for lazy image
  *
  * @param int $imgId - image ID
  * @param int $imgSize - image size name

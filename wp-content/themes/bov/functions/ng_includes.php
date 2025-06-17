@@ -15,3 +15,20 @@ function ng__post_search_columns($columns, $search, $query) {
 }
 
 add_filter('post_search_columns', 'ng__post_search_columns', 10, 3);
+function cc_mime_types( $mimes ){
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter( 'upload_mimes', 'cc_mime_types' );
+
+function nextg_fix_svg_size_attributes( $out, $id ) {
+    $image_url  = wp_get_attachment_url( $id );
+    $file_ext   = pathinfo( $image_url, PATHINFO_EXTENSION );
+
+    if ( is_admin() || 'svg' !== $file_ext ) {
+        return false;
+    }
+
+    return array( $image_url, null, null, false );
+}
+add_filter( 'image_downsize', 'nextg_fix_svg_size_attributes', 10, 2 );

@@ -1,0 +1,144 @@
+.faq {
+  scroll-margin-top: 100px;
+  padding-bottom: 50px;
+  @include r($brp-992) {
+    padding-bottom: 100px;
+  }
+
+  &__wrap {
+    max-width: 880px;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__title {
+    padding-left: 15px;
+    margin-bottom: 30px;
+    text-transform: capitalize;
+    @include r($brp-992) {
+      margin-bottom: 50px;
+    }
+  }
+
+  &__accordion-item {
+    width: 100%;
+    border-bottom: 1px solid #D1CCC6;
+  }
+
+  &__toggle {
+    width: 100%;
+    letter-spacing: 0;
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    text-align: left;
+    transition: all $transition-style-medium;
+    @include r($brp-992) {
+      padding: 30px 15px;
+    }
+
+    &:hover {
+      cursor: pointer;
+      @include r($brp-1280) {
+        background-color: #EEEAE6;
+      }
+    }
+
+    &--active {
+      .faq__icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    fill: transparent;
+    stroke: #C47900;
+    transform-origin: center;
+    transition: transform $transition-style-medium;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 600ms ease;
+
+    &--active {
+      grid-template-rows: 1fr;
+    }
+  }
+
+  &__content-box {
+    overflow: hidden;
+  }
+
+  &__text {
+    padding: 10px 15px;
+
+    p{
+      font-size: 16px;
+    }
+
+    p + p {
+      margin-top: 20px;
+
+      a {
+        @include underline-hover(rgba(7, 7, 7, 0.2));
+        color: rgba(142, 131, 57, 1);
+
+        &:hover::after {
+          width: 100%;
+        }
+      }
+    }
+
+    ul + p {
+      margin-top: 20px;
+    }
+
+    p + ul {
+      margin-top: 15px;
+    }
+
+    ul + ul {
+      margin-top: 15px;
+    }
+
+    ul {
+
+      padding-left: 30px;
+
+      li {
+        font-size: 16px;
+        list-style-type: disc;
+        list-style-position: outside;
+        margin-bottom: 5px;
+        line-height: 1.56;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        a {
+          @include underline-hover(rgba(7, 7, 7, 0.2));
+          color: rgba(142, 131, 57, 1);
+
+          &:hover::after {
+            width: 100%;
+          }
+
+          strong {
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}

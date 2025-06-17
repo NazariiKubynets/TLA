@@ -1,12 +1,3 @@
-.testimonials-hero{
-  .hero__img img{
-    object-position: -165px 0;
-    @include r($brp-1140){
-      object-position: center;
-    }
-  }
-}
-
 .testimonials {
   padding-top: 40px;
   padding-bottom: 50px;
@@ -45,6 +36,7 @@
   }
 
   &__icon{
+    fill: var(--color-secondary);
     margin-bottom: 25px;
   }
 
@@ -67,6 +59,7 @@
   //SIDEBAR//
 
   &__sidebar {
+    overflow: hidden;
     flex: 1;
     width: 100%;
 
@@ -201,10 +194,6 @@
   .wpcf7-acceptance label {
     flex-grow: 1;
     font-size: inherit;
-  }
-
-  &__form-btn{
-    width: 100% !important;
   }
 
   &__advantages{

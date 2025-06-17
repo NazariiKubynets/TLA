@@ -11,10 +11,9 @@ $shortTitle = get_field('short_title');
 <?= $args["index"] > 5 && $args["index"] < 9 ? 'hidden--desk' : '' ?>" href="<?= get_permalink(); ?>">
     <div class="tour-post__img">
         <?php if (get_the_post_thumbnail($post->ID)) {
-            echo get_the_post_thumbnail($post->ID, '1536x1536', array('class' => 'img'));
+            echo wp_get_attachment_image_lazy(get_post_thumbnail_id($post->ID), 'medium_large', 'img');
         } else { ?>
-            <img class="img" src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                 alt="default-img">
+            <?= wp_get_attachment_image_lazy(9717, 'medium_large', 'img') ?>
         <?php } ?>
     </div>
     <div class="tour-post__content">

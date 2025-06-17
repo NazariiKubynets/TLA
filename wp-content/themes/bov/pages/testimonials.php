@@ -16,9 +16,7 @@ $advantages = get_field('advantages', 'option');
             <?php if (has_post_thumbnail($pageId)) {
                 echo get_the_post_thumbnail($pageId, 'large_1920', array('class' => 'img'));
             } else { ?>
-                <img class="img"
-                     src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                     alt="default-img">
+                <?= wp_get_attachment_image(9717, 'large_1920',true, ['class' => 'img']) ?>
             <?php } ?>
         </div>
         <div class="hero__container container">
@@ -46,19 +44,19 @@ $advantages = get_field('advantages', 'option');
                     $query = new WP_Query($queryArgs);
                     while ($query->have_posts()) {
                         $query->the_post();
-                        $testimonial = get_field('customer_testimonials');
+                        $author_name = get_field('author_name');
+                        $date = get_field('date');
+                        $location = get_field('location');
                         ?>
                         <div class="testimonials__item">
-                            <svg class="testimonials__icon" width="51" height="27" viewBox="0 0 51 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M2 8V14V14C2 20.6274 7.37258 26 14 26V26C20.6274 26 26 20.6274 26 14V14C26 7.37258 20.6274 2 14 2V2H8" stroke="#B4ADA4"/>
-                                <path d="M26 2H38C44.6274 2 50 7.37258 50 14V14C50 20.6274 44.6274 26 38 26V26C31.3726 26 26 20.6274 26 14V2Z" stroke="#B4ADA4"/>
-                                <circle cx="2" cy="2" r="2" fill="#144D55"/>
+                            <svg class="testimonials__icon" width="26" height="20">
+                                <use xlink:href="<?= getSvgSpriteUrl() ?>#quote-icon" />
                             </svg>
                             <div class="testimonials__text"><?php the_content(); ?></div>
                             <p class="testimonials__author-name">
-                                <?= $testimonial['author_name'] ?>
+                                <?= $author_name ?>, <?= $location ?>
                             </p>
-                            <p class="testimonials__date"><?= $testimonial['date'] ?></p>
+                            <p class="testimonials__date"><?= $date ?></p>
                         </div>
                     <?php }
 

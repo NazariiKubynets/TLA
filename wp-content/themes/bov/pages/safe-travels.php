@@ -17,9 +17,7 @@ $advantages = get_field('advantages', 'option');
             <?php if (has_post_thumbnail($pageId)) {
                 echo get_the_post_thumbnail($pageId, 'large_1920', array('class' => 'img'));
             } else { ?>
-                <img class="img"
-                     src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                     alt="default-img">
+                <?= wp_get_attachment_image(9717, 'large_1920',true, ['class' => 'img']) ?>
             <?php } ?>
         </div>
         <div class="hero__container container">
@@ -87,17 +85,17 @@ $advantages = get_field('advantages', 'option');
         </div>
     </section>
 
-    <section class="safe-travels-advantages">
+    <section class="ethical-conscience-advantages">
         <div class="container">
-            <div class="safe-travels-advantages__wrap">
-                <h3 class="safe-travels-advantages__title"><?= $advantages['advantages_title'] ?></h3>
-                <ul class="safe-travels-advantages__list">
+            <div class="ethical-conscience-advantages__wrap">
+                <h3 class="ethical-conscience-advantages__title"><?= $advantages['advantages_title'] ?></h3>
+                <ul class="ethical-conscience-advantages__list">
                     <?php if (isset($advantages['advantages']) && !empty($advantages['advantages'])) : ?>
                         <?php foreach ($advantages['advantages'] as $index => $item) { ?>
-                            <li class="safe-travels-advantages__item">
-                                <?= wp_get_attachment_image_lazy($item['icon'], 'thumbnail', "safe-travels-advantages__icon") ?>
-                                <p class="safe-travels-advantages__item-title"><?= $item['title'] ?></p>
-                                <p class="safe-travels-advantages__text"><?= $item['text'] ?></p>
+                            <li class="ethical-conscience-advantages__item">
+                                <?= wp_get_attachment_image_lazy($item['icon'], 'thumbnail', "ethical-conscience-advantages__icon") ?>
+                                <p class="ethical-conscience-advantages__item-title"><?= $item['title'] ?></p>
+                                <p class="ethical-conscience-advantages__text"><?= $item['text'] ?></p>
                             </li>
                         <?php } ?>
                     <?php endif; ?>

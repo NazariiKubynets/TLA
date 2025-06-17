@@ -15,8 +15,7 @@ get_header();
             <?php if (has_post_thumbnail()) {
                 echo get_the_post_thumbnail($pageId, 'large_1920', array('class' => 'img'));
             } else { ?>
-                <img class="img" src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                     alt="default-img">
+                <?= wp_get_attachment_image(9717, 'large_1920',true, ['class' => 'img']) ?>
             <?php } ?>
         </div>
         <div class="hero__container container">
@@ -41,9 +40,12 @@ get_header();
                         <h3 class="contact-us-form__info-title title-s">
                             <?= $contactUs['address_title'] ?>
                         </h3>
-                        <p class="contact-us-form__info-text">
+                        <a class="contact-us-form__info-text"
+                           href="<?= $contactUs['address_link'] ?>"
+                           target="_blank"
+                           rel="nofollow">
                             <?= $contactUs['address'] ?>
-                        </p>
+                        </a>
                     </div>
                     <div class="contact-us-form__contact">
                         <p class="contact-us-form__contact-subtitle">
@@ -56,7 +58,7 @@ get_header();
                             <div class="contact-us-form__contact-wrap">
                                 <p class="contact-us-form__contact-text"><?= $contact['text_number_one'] ?></p>
                                 <span class="contact-us-form__line"></span>
-                                <a href="tel:<?= $contact['number_free'] ?>"
+                                <a href="tel:<?= str_replace(' ', '', $contact['number_free']) ?>"
                                    class="contact-us-form__contact-tel"
                                    target="_blank"
                                    rel="nofollow"><?= $contact['number_free'] ?>
@@ -70,7 +72,7 @@ get_header();
                                     ?>
                                 </p>
                                 <span class="contact-us-form__line"></span>
-                                <a href="tel:<?= $contact['number_direct'] ?>"
+                                <a href="tel:<?= str_replace(' ', '', $contact['number_direct']) ?>"
                                    class="contact-us-form__contact-tel"
                                    target="_blank"
                                    rel="nofollow">

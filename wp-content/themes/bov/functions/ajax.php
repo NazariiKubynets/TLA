@@ -7,6 +7,7 @@ function ajax_filter_posts()
     $baseurl = isset($_GET['baseurl']) ? $_GET['baseurl'] : "";
     $categories_id = !empty($_GET['categories']) && is_array($_GET['categories']) ? array_map('intval', $_GET['categories']) : [];
     $search_query = isset($_GET['s']) ? sanitize_text_field($_GET['s']) : 0;
+
     $pagination_buttons = '';
 
     $category_names = [];
@@ -20,7 +21,8 @@ function ajax_filter_posts()
         'post_type' => 'post',
         'paged' => $paged,
         'orderby' => 'date',
-        'order' => 'DESC'
+        'order' => 'DESC',
+        'post_status' => 'publish'
     );
 
     if ($search_query) {
@@ -131,15 +133,26 @@ function ajax_filter_posts()
         if (!empty($categories_id)) {
             $argsPageLink["add_args"]["countries"] = implode(",", $categories_id);
         }
+
         if (!empty($search_query)) {
-            $argsPageLink["add_args"]["s"] = $search_query;
+            $argsPageLink["add_args"]["s"] = str_replace( ' ', '%20', ltrim( $search_query ) );
         }
-        $_SERVER['REQUEST_URI'] = [];
+
+        if(is_array($_SERVER['REQUEST_URI'])) {
+            $_SERVER['REQUEST_URI'] = [];
+        } else {
+            $_SERVER['REQUEST_URI'] = "";
+        }
+
+
         $response['pagination'] = paginate_links( $argsPageLink );
         $response['catSelected'] = $selected_categories;
+
         $response['remainingCount'] = $remaining_count;
+
+
     } else {
-        $response['grid'] = "Posts not found.";
+        $response['grid'] = "";
         $response['pagination'] = $pagination_buttons;
         $response['catSelected'] = $selected_categories;
         $response['remainingCount'] = $remaining_count;

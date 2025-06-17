@@ -29,7 +29,6 @@ export default function () {
     };
 
 
-
     toggleVisibility('.team__btn', '.team__item');
     toggleVisibility('.leadership__btn', '.leadership__item');
     toggleVisibility('.destination__btn', '.destination-tour-post', { desktop: 9, mobile: 6 });

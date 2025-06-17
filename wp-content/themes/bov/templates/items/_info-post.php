@@ -8,10 +8,9 @@
 <a href="<?php the_permalink(); ?>" class="info-post__item <?= $args["className"] ?? '' ?>">
     <div class="info-post__img">
         <?php if (get_the_post_thumbnail($post->ID)) {
-            echo get_the_post_thumbnail($post->ID, 'medium_large', array('class' => 'img'));
+            echo  wp_get_attachment_image_lazy(get_post_thumbnail_id($post->ID), 'medium_large', 'img');
         } else { ?>
-            <img class="img" src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                 alt="default-img">
+            <?= wp_get_attachment_image_lazy(9717, 'medium_large', 'img') ?>
         <?php } ?>
     </div>
     <h3 class="info-post__title title-s"><?= get_the_title() ?></h3>

@@ -50,25 +50,25 @@
       right: 0;
       left: 0;
       bottom: 0;
-      background: linear-gradient(180deg, rgba(7, 7, 7, 0) 0%, rgba(7, 7, 7, 0.6) 100%);
+      background: linear-gradient(180deg, rgba(7, 7, 7, 0) 0, rgba(7, 7, 7, .4) 100%);
       z-index: 1;
     }
   }
 
-  &__container {
+  &__container.container {
     padding-top: 100px;
     min-height: calc(100svh - 65px);
     display: flex;
     align-items: end;
 
     @include r($brp-768) {
-      padding-top: 130px !important;
+      padding-top: 130px;
       min-height: 80svh;
     }
 
     @include r($brp-1200) {
       @include rhmax($brp-768) {
-        padding-top: 190px !important;
+        padding-top: 190px;
       }
     }
   }
@@ -99,7 +99,7 @@
     color: var(--color-secondary-txt);
     border: 1px solid rgba(255, 255, 255, 0.4);
     margin-bottom: 30px;
-    transition: all $transition-style-fast;
+    transition: border-bottom-color $transition-style-fast, background-color $transition-style-fast, color $transition-style-fast ;
 
     &:is(a):hover {
       border-bottom-color: rgba(255, 255, 255, .4);

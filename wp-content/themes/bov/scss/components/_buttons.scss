@@ -1,7 +1,4 @@
 .btn {
-  //display: inline-flex;
-  //justify-content: center;
-  //align-items: center;
   display: block;
   padding: 20px 25px;
   border-radius: 5px;
@@ -17,7 +14,7 @@
   cursor: pointer;
   border: none;
   width: 100%;
-  transition: all $transition-style-fast;
+  transition: background-color $transition-style-fast, color $transition-style-fast;
 
   @include r($brp-576){
     width: fit-content;
@@ -41,8 +38,14 @@
 
 
   &[disabled] {
-    //opacity: 0.5;
-    cursor: not-allowed;
+    opacity: 0.5;
+    cursor: default;
+    &:hover{
+      @include r($brp-992){
+        color: var(--color-secondary-txt);
+        background-color: var(--color-bg-btn);
+      }
+    }
   }
 
 }

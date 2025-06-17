@@ -17,7 +17,7 @@ p {
   font-weight: 400;
 
   a{
-    @include underline-hover(rgba(7, 7, 7, 0.2));
+    @include underline-hover();
     color: rgba(142, 131, 57, 1);
     &:hover::after {
       width: 100%;
@@ -37,11 +37,11 @@ ul {
 
     a {
       line-height: 1.48;
-      font-size: 16px;
+      font-size: inherit;
       font-weight: 400;
 
-      @include breakpoint($brp-992) {
-        font-size: 14px;
+      @include r($brp-992) {
+        font-size: inherit;
       }
     }
   }
@@ -112,7 +112,7 @@ a {
 
 span{
   a{
-    @include underline-hover(rgba(7, 7, 7, 0.2));
+    @include underline-hover();
     color: rgba(142, 131, 57, 1);
     &:hover::after {
       width: 100%;

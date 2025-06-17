@@ -3,11 +3,18 @@
 add_action('wp_print_styles', 'add_my_styles');
 function add_my_styles()
 {
-    wp_enqueue_style('no-ui-slider-styles', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css', null, null);
 
-    wp_enqueue_style('bov-styles', get_template_directory_uri() . '/css/styles.min.css', null,
-        getVer('wp-content/themes/bov/css/styles.min.css'));
+    if (is_page_template('pages/contact-us.php')) {
+        wp_enqueue_style('no-ui-slider-styles', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css', null, null);
+        wp_enqueue_style('intl-tel-input-styles', 'https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.0/build/css/intlTelInput.css', null, null);
+    }
 
+    wp_enqueue_style(
+        'bov-styles',
+        get_template_directory_uri() . '/css/styles.min.css',
+        null,
+        getVer('wp-content/themes/bov/css/styles.min.css')
+    );
 }
 
 //Include styles 
@@ -16,16 +23,37 @@ function add_scripts()
     // Disable standard jquery and register cdn version of it
     wp_deregister_script('jquery');
     wp_register_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js');
+    wp_enqueue_script('gsap-min', get_template_directory_uri() . '/js/dist/gsap.min.js', [], '20240812', true);
+    wp_enqueue_script('scroll-trigger', get_template_directory_uri() . '/js/dist/scrollTrigger.min.js', [], '20240812', true);
+//    wp_enqueue_script('animations', get_template_directory_uri() . '/js/dist/animations.js', ['gsap-min', 'scroll-trigger'], "", true);
 
-    wp_enqueue_script('no-ui-slider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js', ['jquery'], null, true);
+    if (is_page_template('pages/contact-us.php')) {
+        wp_enqueue_script('no-ui-slider', 'https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js', ['jquery'], null, true);
+        wp_enqueue_script('intl-tel-input', 'https://cdn.jsdelivr.net/npm/intl-tel-input@25.2.0/build/js/intlTelInputWithUtils.min.js', ['jquery'], null, true);
+        wp_enqueue_script(
+            'contact-form',
+            get_template_directory_uri() . '/js/dist/contact-us-form.js',
+            ['jquery', 'no-ui-slider', 'intl-tel-input'],
+            getVer('wp-content/themes/bov/js/dist/contact-us-form.js'),
+            true
+        );
+    }
 
-    wp_enqueue_script('plugins',
-        get_template_directory_uri() . '/js/dist/plugins.min.js', ['jquery'],
-        getVer('wp-content/themes/bov/js/dist/plugins.min.js'), true);
+    wp_enqueue_script(
+        'plugins',
+        get_template_directory_uri() . '/js/dist/plugins.min.js',
+        ['jquery'],
+        getVer('wp-content/themes/bov/js/dist/plugins.min.js'),
+        true
+    );
 
-    wp_enqueue_script('app',
-        get_template_directory_uri() . '/js/dist/app.min.js', ['plugins', 'no-ui-slider'],
-        getVer('wp-content/themes/bov/js/dist/app.min.js'), true);
+    wp_enqueue_script(
+        'app',
+        get_template_directory_uri() . '/js/dist/app.min.js',
+        ['plugins', 'gsap-min', 'scroll-trigger'],
+        getVer('wp-content/themes/bov/js/dist/app.min.js'),
+        true
+    );
 }
 
 add_action('wp_enqueue_scripts', 'add_scripts');
@@ -50,7 +78,7 @@ add_action('wp_enqueue_scripts', function () {
 
 //Add "defer" to js scripts (except google captcha etc)
 add_filter('script_loader_tag', function ($tag, $handle) {
-    if (!is_admin() && !strpos($tag, 'recaptcha')) {
+    if (!is_admin() && !strpos($tag, 'recaptcha') && !strpos($tag, 'jquery')) {
         return str_replace(' src', ' defer src', $tag);
     } else {
         return $tag;

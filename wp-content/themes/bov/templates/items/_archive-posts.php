@@ -13,9 +13,7 @@ $post_count = $args['post-count'];
         <?php if (has_post_thumbnail($post->ID)) {
             echo get_the_post_thumbnail($post->ID, 'medium_large', array('class' => 'img'));
         } else { ?>
-            <img class="img"
-                 src="<?= get_template_directory_uri(); ?>/img/decor/dist/default-img.jpg"
-                 alt="default-img">
+            <?= wp_get_attachment_image_lazy(9717, 'medium_large', 'img') ?>
         <?php } ?>
     </a>
     <div class="archive-posts__post-content">

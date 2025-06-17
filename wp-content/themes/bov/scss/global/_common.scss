@@ -15,6 +15,7 @@ html {
   max-width: 2560px;
   font: 18px var(--primary-font);
   scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
 
   &.js-hidden {
     overflow: hidden;
@@ -36,7 +37,7 @@ body {
   margin: 0 auto;
   padding: 0 25px;
 
-  @include breakpoint($mobile-menu-breakpoint)
+  @include r($mobile-menu-breakpoint)
   {
     padding: 0 30px;
   }
@@ -53,6 +54,10 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--color-secondary);
   border-radius: 0;
+}
+
+.grecaptcha-badge{
+  visibility: hidden;
 }
 
 .select {
@@ -124,18 +129,6 @@ button {
 
 .iframe-responsive {
   @include responsive-iframe;
-}
-
-.visually-hidden {
-  position: absolute !important;
-  clip: rect(1px 1px 1px 1px);
-  /* IE6, IE7 */
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0 !important;
-  border: 0 !important;
-  height: 1px !important;
-  width: 1px !important;
-  overflow: hidden;
 }
 
 .styled-radio {
@@ -242,6 +235,7 @@ button {
   overflow: visible;
   position: relative;
   padding-bottom: 50px;
+
   @include r($brp-992){
     padding-bottom: 100px;
   }

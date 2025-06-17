@@ -41,7 +41,7 @@
   &__text {
     margin-bottom: 30px;
 
-    h2
+    h2,
     p {
       line-height: 1.56;
     }
@@ -49,10 +49,21 @@
 
   }
 
-  &__img {
+  &__img{
+    transition: $transition-style-fast;
+    pointer-events: none;
     border-radius: 10px;
     overflow: hidden;
     margin-bottom: 30px;
+
+    @include r($brp-992){
+      aspect-ratio: auto 786 / 420;
+      pointer-events: auto;
+      cursor: pointer;
+      &:hover{
+        opacity: .75;
+      }
+    }
   }
 
   &__video-container {
@@ -133,13 +144,15 @@
   }
 
   &__info-block-text {
-    p+p{
+    p + p {
       margin-top: 15px;
     }
-    p{
+
+    p {
       opacity: .8;
       font-size: 16px;
     }
+
     margin-bottom: 30px;
   }
 
@@ -154,15 +167,26 @@
   }
 
   &__info-block-img {
+    transition: $transition-style-fast;
+    pointer-events: none;
     aspect-ratio: 388 / 246;
     flex: 1;
     width: 100%;
     height: auto;
     overflow: hidden;
     border-radius: 5px;
+
+    @include r($brp-992){
+      cursor: pointer;
+      pointer-events: auto;
+
+      &:hover{
+        opacity: .75;
+      }
+    }
   }
 
-  &__info-block-secondary{
+  &__info-block-secondary {
     background-color: #EEEAE6;
     border-radius: 10px;
     padding: 30px;
@@ -178,15 +202,15 @@
     }
   }
 
-  &__info-block-secondary-wrap{
+  &__info-block-secondary-wrap {
     flex: 1;
-    @include r($brp-1280){
+    @include r($brp-1280) {
       max-width: 400px;
       width: 100%;
     }
   }
 
-  &__info-block-secondary-subtitle{
+  &__info-block-secondary-subtitle {
     font-size: 12px;
     color: var(--color-secondary);
     text-transform: uppercase;
@@ -195,27 +219,39 @@
     margin-bottom: 10px;
   }
 
-  &__info-block-secondary-text{
-    p+p{
+  &__info-block-secondary-text {
+    p + p {
       margin-top: 15px;
     }
-    p{
+
+    p {
       opacity: .8;
       font-size: 16px;
     }
   }
 
-  &__info-block-secondary-img{
+  &__info-block-secondary-img {
+    transition: $transition-style-fast;
+    pointer-events: none;
     width: 100%;
     height: auto;
     overflow: hidden;
     border-radius: 5px;
 
-    @include r($brp-768){
+    @include r($brp-768) {
       width: 70%;
     }
 
-    @include r($brp-1280){
+    @include r($brp-992){
+      pointer-events: auto;
+      cursor: pointer;
+
+      &:hover{
+        opacity: .75;
+      }
+    }
+
+    @include r($brp-1280) {
       width: 100%;
       flex: 1;
       max-width: 306px;
@@ -238,18 +274,26 @@
   }
 
   &__swiper-wrapper {
-    box-sizing: border-box !important;
+    box-sizing: border-box;
   }
 
   &__swiper-slide {
+    cursor: pointer;
     position: relative;
     max-height: 536px;
     height: auto;
     overflow: hidden;
     border-radius: 10px;
+    img{
+      transform: scale(1.01);
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
   }
 
-  &__caption{
+  &__caption {
     width: fit-content;
     display: flex;
     align-items: center;
@@ -264,14 +308,14 @@
     padding: 8px 12px;
     border-radius: 2px;
 
-    @include r($brp-768){
+    @include r($brp-768) {
       left: 25px;
       bottom: 25px;
       right: 25px;
       font-size: 12px;
     }
 
-    &:before{
+    &:before {
       flex-shrink: 0;
       display: inline-block;
       content: '';
@@ -284,35 +328,37 @@
   }
 
   &__swiper-row-nav {
+    user-select: none;
     display: flex;
     justify-content: center;
     gap: 30px;
   }
 
-  &__swiper-pagination {
-    width: fit-content !important;
+  &__swiper-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
+    width: fit-content;
     position: static;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 12px;
   }
 
-  .swiper-pagination-bullet {
-    margin: 0 !important;
+  .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0;
     width: 8px;
     height: 8px;
     background: #D1CCC6;
     opacity: 1;
   }
 
-  .swiper-pagination-bullet-active {
+  .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet-active {
     background: #144D55;
   }
 
   &__swiper-nav {
     display: none;
-    @include breakpoint($brp-992) {
+    @include r($brp-992) {
       margin: 0;
       width: 24px;
       height: 24px;
@@ -320,7 +366,12 @@
       display: block;
     }
 
+    &:after{
+      display: none;
+    }
+
     svg {
+      display: block;
       fill: transparent;
       stroke: #C47900;
     }
@@ -394,15 +445,42 @@
   }
 
   &__descriptions-item-text {
-    p {
-      margin-bottom: 30px;
+
+    @include br($brp-992);
+
+    p+p {
+      margin-top: 30px;
 
       @include r($brp-992) {
-        margin-bottom: 40px;
+        margin-top: 40px;
+      }
+    }
+
+    a{
+      @include underline-hover();
+      color: rgba(142, 131, 57, 1);
+      &:hover::after {
+        width: 100%;
+      }
+    }
+
+    ul{
+      margin-top: 30px;
+      padding-left: 30px;
+
+      @include r($brp-992) {
+        margin-top: 40px;
       }
 
-      &:last-child {
-        margin-bottom: 0;
+      li{
+        list-style-type: disc;
+        list-style-position: outside;
+        margin-bottom: 5px;
+        line-height: 1.56;
+
+        &:last-child{
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -447,15 +525,14 @@
                     var(--color-primary) 0%,
                     rgba(255, 255, 255, 0) 100%
     );
-    z-index: 1;
-
-    @include r($brp-992) {
-      //opacity: 0;
-    }
+    z-index: 10;
   }
 
   &__information-tabs::before {
     left: 0;
+    @include r($brp-992) {
+      left: -25px;
+    }
   }
 
   &__information-tabs::after {
@@ -465,12 +542,20 @@
                     var(--color-primary) 0%,
                     rgba(255, 255, 255, 0) 100%
     );
+
+    @include r($brp-992) {
+      right: -25px;
+    }
   }
 
 
   &__information-tabs-wrap {
     position: relative;
     margin-bottom: 30px;
+    @include r($brp-992) {
+      margin-right: -25px;
+      margin-left: -25px;
+    }
 
     &::after {
       z-index: -1;
@@ -478,29 +563,30 @@
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 0px;
+      bottom: 0;
       height: 1px;
       background-color: rgba(209, 204, 198, 1);
     }
   }
 
   &__information-toggles {
-    padding: 0 25px;
     display: flex;
-    gap: 40px;
     list-style: none;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
-
-    @include r($brp-992) {
-      padding: 0;
-    }
   }
 
   &__information-toggle {
     flex-shrink: 0;
+    width: fit-content;
+  }
+
+  &__swiper-tabs{
+    padding-left: 25px;
+    padding-right: 25px;
+    margin: 0;
   }
 
   &__information-btn {
@@ -515,7 +601,9 @@
     bottom: 0;
 
     &:hover {
-      border-color: var(--color-secondary);
+      @include r($brp-1200){
+        border-color: var(--color-secondary);
+      }
     }
   }
 
@@ -565,20 +653,21 @@
       }
 
       li {
-        display: flex;
+        padding-left: 32px;
         position: relative;
         font-size: 16px;
         color: rgba(7, 7, 7, .8);
 
         &::before {
+          position: absolute;
+          left: 0;
           flex-shrink: 0;
-          display: block;
+          display: inline-block;
           width: 20px;
           height: 20px;
           content: '';
           border-radius: 50%;
           background-color: var(--color-secondary);
-          margin-right: 12px;
         }
 
         &::after {
@@ -630,6 +719,7 @@
   //SIDEBAR//
 
   &__sidebar {
+    overflow: hidden;
     flex: 1;
     width: 100%;
 
@@ -680,7 +770,6 @@
       margin-top: 10px;
       border-radius: 4px;
     }
-
   }
 
   &__input {
@@ -728,6 +817,7 @@
   }
 
   .wpcf7-acceptance {
+    cursor: pointer;
     display: flex;
     align-items: flex-start;
     gap: 10px;
@@ -738,11 +828,11 @@
 
   .wpcf7-acceptance input[type="checkbox"] {
     appearance: none;
+    cursor: pointer;
     width: 16px;
     height: 16px;
     border-radius: 2px;
     background-color: #FFFFFF;
-    cursor: pointer;
     position: relative;
     flex-shrink: 0;
     margin-top: 3px;
@@ -767,7 +857,10 @@
   }
 
   &__form-btn {
-    width: 100% !important;
+    width: 100%;
+    @include r($brp-576){
+      width: 100%;
+    }
   }
 
   &__advantages {
@@ -845,10 +938,11 @@
     }
   }
 
-  &__swiper-pagination {
-    width: fit-content !important;
+  &__swiper-pagination.swiper-pagination-bullets.swiper-pagination-horizontal {
+    width: fit-content;
     position: static;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 12px;
@@ -860,15 +954,15 @@
     }
   }
 
-  .swiper-pagination-bullet {
-    margin: 0 !important;
+  .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0;
     width: 8px;
     height: 8px;
     background: #D1CCC6;
     opacity: 1;
   }
 
-  .swiper-pagination-bullet-active {
+  .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet-active {
     background: #144D55;
   }
 }
